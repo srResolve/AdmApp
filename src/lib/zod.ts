@@ -14,3 +14,13 @@ export const ZodLoginValidation = z.object({
   email: z.string().email('Verifique o email inserido'),
   password: z.string().min(3, 'Verifique a senha inserida'),
 });
+
+export const ZodEditProfileValidation = z.object({
+  name: z.string().min(3, 'O nome deve ter pelo menos 3 caracteres'),
+  email: z.string().email('Verifique o email inserido'),
+  mobilePhone: z
+    .string()
+    .min(14, 'Verifique o telefone inserido')
+    .max(14, 'Verifique o telefone inserido')
+    .optional(),
+});
