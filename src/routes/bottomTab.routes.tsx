@@ -15,7 +15,7 @@ export function AppRoutes() {
         headerShown: false,
         tabBarStyle: {
           paddingBottom: 0,
-          marginBottom: RFValue(50),
+          marginBottom: RFValue(25),
           height: RFValue(60),
           paddingTop: 15,
           marginHorizontal: 10,
@@ -61,6 +61,12 @@ export function AppRoutes() {
       <Screen
         name="Budgets"
         component={Budgets}
+        // listeners={{
+        //   tabPress: (e) => {
+        //     // Prevent default action
+        //     e.preventDefault();
+        //   },
+        // }}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ focused }) => (

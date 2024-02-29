@@ -18,9 +18,9 @@ export function StackRoutes() {
         },
       }}
     >
-      <Screen name="App" component={AppRoutes} />
-      <Screen name="Login" component={Login} />
       <Screen name="Start" component={Start} />
+      <Screen name="Login" component={Login} />
+      <Screen name="App" component={AppRoutes} />
     </Navigator>
   );
 }
