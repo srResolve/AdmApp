@@ -30,9 +30,13 @@ export function BaseButton({
       className={`${variants[variant]} ${rest.className} ${disabled ? 'opacity-50' : ''}`}
       {...rest}
     >
-      <Text className={`text-zinc-50 text-2xl font-bold ${titleClassName}`} {...rest}>
-        {loading ? <ActivityIndicator size="small" /> : title}
-      </Text>
+      {loading ? (
+        <ActivityIndicator size="large" color="white" />
+      ) : (
+        <Text className={`text-zinc-50 text-2xl font-bold ${titleClassName}`} {...rest}>
+          {title}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 }
