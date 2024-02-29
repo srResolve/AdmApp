@@ -72,7 +72,10 @@ export const AuthPutAPI = async (url: string, data: any) => {
   const token = await configToken();
 
   if (token === 400) {
-    return;
+    return {
+      status: 400,
+      body: '',
+    };
   }
 
   const connect = await api
@@ -86,6 +89,7 @@ export const AuthPutAPI = async (url: string, data: any) => {
     .catch((err) => {
       const message = err.response.data;
       const status = err.response.status;
+
       return { status: status, body: message };
     });
 
