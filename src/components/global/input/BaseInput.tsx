@@ -27,7 +27,7 @@ export function BaseInput({ containerStyle, error, ...rest }: InputProps) {
 
   return (
     <View
-      className={`flex-row border ${hasError ? 'border-red-700' : rest.editable ? 'border-zinc-700' : 'border-zinc-100'} items-center mt-4 w-3/4 bg-primary_400 h-14 rounded-lg overflow-hidden ${containerStyle} `}
+      className={`flex-row border ${hasError ? 'border-red-700' : rest.editable ? 'border-zinc-100' : 'border-zinc-700'} items-center mt-4 w-3/4 bg-primary_400 h-14 rounded-lg overflow-hidden ${containerStyle} `}
     >
       <TextInput
         {...rest}
