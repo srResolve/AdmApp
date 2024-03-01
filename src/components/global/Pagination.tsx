@@ -24,6 +24,11 @@ export function Pagination({ totalPages, currentPage, onPageChange }: Props) {
       <FlatList
         data={pages}
         horizontal
+        contentContainerStyle={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          flex: 1,
+        }}
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.toString()}
         renderItem={({ item }) => (
