@@ -14,6 +14,7 @@ export function IconBaseInput({
   containerStyle,
   icon,
   orientation = 'right',
+  editable = true,
   error,
   ...rest
 }: InputProps) {
@@ -35,7 +36,7 @@ export function IconBaseInput({
 
   return (
     <View
-      className={`${orientation === 'right' ? 'flex-row' : 'flex-row-reverse'} border ${hasError ? 'border-red-700' : rest.editable ? 'border-zinc-100' : 'border-zinc-700'} items-center mt-4 w-3/4 bg-primary_400 h-14 rounded-lg overflow-hidden ${containerStyle} `}
+      className={`${orientation === 'right' ? 'flex-row' : 'flex-row-reverse'} border ${hasError ? 'border-red-700' : editable ? 'border-zinc-100' : 'border-zinc-700'} items-center mt-4 w-3/4 bg-primary_400 h-14 rounded-lg overflow-hidden ${containerStyle} `}
     >
       <TextInput
         {...rest}
