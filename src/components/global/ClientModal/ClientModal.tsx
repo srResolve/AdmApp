@@ -22,7 +22,7 @@ export function ClientModal({ open, setOpen, selectedClient, setSelectedClient }
   const [searchText, setSearchText] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [clientList, setClientList] = useState<Client[]>([]);
-  const [createClientModal, setCreateClientModal] = useState(true);
+  const [createClientModal, setCreateClientModal] = useState(false);
 
   async function getClients() {
     setLoading(true);
