@@ -24,3 +24,11 @@ export const ZodEditProfileValidation = z.object({
     .max(14, 'Verifique o telefone inserido')
     .optional(),
 });
+
+export const ZodCreateClientValidation = z.object({
+  name: z.string(),
+  mobile_phone: z.string(),
+  address: z.string(),
+  location: z.string().optional(),
+  cpfCnpj: z.string().optional(),
+});
