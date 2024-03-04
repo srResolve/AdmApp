@@ -47,10 +47,7 @@ export function AppRoutes() {
                 borderTopLeftRadius: 20,
                 borderTopRightRadius: 20,
                 borderRadius: 20,
-                // The overflow hidden is just to apply above radius.
                 overflow: 'hidden',
-                // We can also apply background to tweak blur color
-                // backgroundColor: 'transparent',
                 backgroundColor: 'rgba(92, 113, 214, 0.8)',
               }}
             />
@@ -61,12 +58,6 @@ export function AppRoutes() {
       <Screen
         name="Budgets"
         component={Budgets}
-        // listeners={{
-        //   tabPress: (e) => {
-        //     // Prevent default action
-        //     e.preventDefault();
-        //   },
-        // }}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ focused }) => (
@@ -85,6 +76,12 @@ export function AppRoutes() {
       />
       <Screen
         name="Schedule"
+        listeners={{
+          tabPress: (e) => {
+            // Prevent default action
+            e.preventDefault();
+          },
+        }}
         component={Schedule}
         options={{
           tabBarLabel: '',
@@ -104,6 +101,12 @@ export function AppRoutes() {
       />
       <Screen
         name="Finance"
+        listeners={{
+          tabPress: (e) => {
+            // Prevent default action
+            e.preventDefault();
+          },
+        }}
         component={Finance}
         options={{
           tabBarLabel: '',
@@ -124,6 +127,12 @@ export function AppRoutes() {
       <Screen
         name="Profile"
         component={Profile}
+        listeners={{
+          tabPress: (e) => {
+            // Prevent default action
+            e.preventDefault();
+          },
+        }}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ focused }) => (
