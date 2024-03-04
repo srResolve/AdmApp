@@ -50,7 +50,7 @@ export function ClientModal({ open, setOpen, selectedClient, setSelectedClient }
 
   return (
     <Modal visible={open} transparent animationType="fade">
-      <View className="absolute left-0 right-0 z-10 h-3/4 pb-2 mx-6 rounded-xl items-center  bg-primary_600 top-32">
+      <View className="absolute left-0 right-0 z-10 h-3/4 pb-2 mx-6 rounded-xl items-center  bg-primary_600  my-14">
         <View className="flex-row items-center justify-between w-full pr-2">
           <View className="flex-row">
             <BackButton onPress={() => setOpen(false)} />
