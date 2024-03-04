@@ -33,9 +33,7 @@ export function BaseButton({
       {loading ? (
         <ActivityIndicator size="large" color="white" />
       ) : (
-        <Text className={`text-zinc-50 text-2xl font-bold ${titleClassName}`} {...rest}>
-          {title}
-        </Text>
+        <Text className={`text-zinc-50 text-2xl font-bold ${titleClassName}`}>{title}</Text>
       )}
     </TouchableOpacity>
   );
