@@ -45,7 +45,6 @@ export function CreateClientModal({ open, setOpen }: Props) {
     try {
       setErrorMessage('');
       setFormError([]);
-      console.log(data);
       const dataValidation = ZodCreateClientValidation.parse(data);
 
       setLoading(true);
@@ -61,7 +60,6 @@ export function CreateClientModal({ open, setOpen }: Props) {
       setOpen(false);
     } catch (error) {
       if (error instanceof ZodError) {
-        console.log(error);
         setFormError(error.issues.map((issue) => issue.path[0].toString()));
       }
     }
