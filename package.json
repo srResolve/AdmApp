@@ -23,6 +23,7 @@
     "eslint-plugin-react-native": "^4.1.0",
     "expo": "~50.0.8",
     "expo-blur": "~12.9.2",
+    "expo-contacts": "~12.8.2",
     "expo-image-picker": "^14.7.1",
     "expo-linear-gradient": "~12.7.2",
     "expo-status-bar": "~1.11.1",
