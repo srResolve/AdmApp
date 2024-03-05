@@ -4,8 +4,10 @@ interface Props {
   value: number;
 }
 
-export const pdfServicesAndProducts = (data: Props[]) => {
+export const pdfServicesAndProducts = (data?: Props[]) => {
   let finalText = '';
+
+  if (!data) return finalText;
 
   for (const item of data) {
     finalText += `

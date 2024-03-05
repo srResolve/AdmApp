@@ -1,24 +1,26 @@
 interface Props {
-  products: {
+  products?: {
     name: string;
     quantity: number;
     value: number;
   }[];
-  services: {
+  tasks: {
     name: string;
     quantity: number;
     value: number;
   }[];
 }
 
-export const paymentInformation = ({ products, services }: Props) => {
-  const productValue = services.reduce((accumulator, service) => {
+export const paymentInformation = ({ products, tasks }: Props) => {
+  const tasksValue = tasks.reduce((accumulator, service) => {
     return accumulator + service.value;
   }, 0);
 
-  const servicesValue = products.reduce((accumulator, product) => {
-    return accumulator + product.value;
-  }, 0);
+  const productValue = products
+    ? products.reduce((accumulator, product) => {
+        return accumulator + product.value;
+      }, 0)
+    : 0;
 
   return `
     <table
@@ -52,7 +54,7 @@ export const paymentInformation = ({ products, services }: Props) => {
             text-align: right;
           "
         >
-          ${servicesValue.toLocaleString('pt-br', {
+          ${tasksValue.toLocaleString('pt-br', {
             style: 'currency',
             currency: 'BRL',
           })}
@@ -80,7 +82,7 @@ export const paymentInformation = ({ products, services }: Props) => {
             text-align: right;
           "
         >
-         ${(servicesValue + productValue).toLocaleString('pt-br', {
+         ${(tasksValue + productValue).toLocaleString('pt-br', {
            style: 'currency',
            currency: 'BRL',
          })}
@@ -111,7 +113,7 @@ export const paymentInformation = ({ products, services }: Props) => {
             text-align: right;
           "
         >
-        ${(servicesValue + productValue).toLocaleString('pt-br', {
+        ${(tasksValue + productValue).toLocaleString('pt-br', {
           style: 'currency',
           currency: 'BRL',
         })}

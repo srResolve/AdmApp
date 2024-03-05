@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { ZodError, z } from 'zod';
 
 export const ZodCreateTaskAndProduct = z.object({
   name: z.string().min(3, 'O nome deve ter pelo menos 3 caracteres'),
@@ -32,3 +32,65 @@ export const ZodCreateClientValidation = z.object({
   location: z.string().optional(),
   cpfCnpj: z.string().optional(),
 });
+
+export const ZodCreateBudgetValidation = z.object({
+  client_id: z.string(),
+  due_date: z.coerce.date(),
+  observation: z.string().optional(),
+  execution_period: z.coerce.number().optional(),
+  photo: z
+    .array(
+      z.object({
+        photo_key: z.string(),
+        photo_location: z.string(),
+      })
+    )
+    .optional(),
+  tasks: z.array(
+    z.object({
+      name: z.string(),
+      value: z.number(),
+      quantity: z.number(),
+      description: z.string().optional(),
+      photo_key: z.string().optional(),
+      photo_location: z.string().optional(),
+    })
+  ),
+  products: z
+    .array(
+      z.object({
+        name: z.string(),
+        value: z.number(),
+        quantity: z.number(),
+      })
+    )
+    .optional(),
+});
+
+export const zodErrorHandler = (error: ZodError) => {
+  const field = errorList.find((field) => field.name === error.issues[0].path[0]);
+  return field?.message || 'Verifique os dados inseridos';
+};
+
+const errorList = [
+  {
+    name: 'client_id',
+    message: 'Selecione um cliente',
+  },
+  {
+    name: 'due_date',
+    message: 'Selecione uma data de vencimento',
+  },
+  {
+    name: 'tasks',
+    message: 'Adicione pelo menos uma tarefa',
+  },
+  {
+    name: 'products',
+    message: 'Adicione pelo menos um produto',
+  },
+  {
+    name: 'name',
+    message: 'Adicione um nome',
+  },
+];

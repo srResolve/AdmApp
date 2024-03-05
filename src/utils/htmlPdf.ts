@@ -32,7 +32,7 @@ export const createPdf = (props: BudgetPdfCreate) => {
   cellspacing="0"
 >
   ${tableHeader('Serviços')}
-  ${pdfServicesAndProducts(props.services)}
+  ${pdfServicesAndProducts(props.tasks)}
   ${tableHeader('Materiais')}
   ${pdfServicesAndProducts(props.products)}
   </table>
