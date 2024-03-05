@@ -1,7 +1,7 @@
-import { Text, View, ViewProps } from 'react-native';
+import { Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 import { StatusCard } from '../../global/StatusCard';
 
-interface Props extends ViewProps {
+interface Props extends TouchableOpacityProps {
   item: {
     client: {
       name: string;
@@ -13,7 +13,7 @@ interface Props extends ViewProps {
 
 export function BudgetTableCard({ item, ...rest }: Props) {
   return (
-    <View
+    <TouchableOpacity
       className="flex-row justify-between p-1 px-2 items-center bg-primary_400 mt-2 rounded-lg border border-zinc-100"
       {...rest}
     >
@@ -26,6 +26,6 @@ export function BudgetTableCard({ item, ...rest }: Props) {
         </Text>
       </View>
       <StatusCard status={item.status} />
-    </View>
+    </TouchableOpacity>
   );
 }
