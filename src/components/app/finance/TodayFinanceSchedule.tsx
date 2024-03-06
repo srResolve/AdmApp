@@ -1,7 +1,9 @@
 import { AntDesign } from '@expo/vector-icons';
 import { useState } from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
-import { Pagination } from '../../global/Pagination';
+import { FlatList, Text, View } from 'react-native';
+import { StatusCard } from '../../global/StatusCard';
+import { TableContainer } from '../../global/TableContainer';
+import { NewScheduleModal } from './modal/NewScheduleModal';
 
 export function TodayFinanceSchedule() {
   const [pages, setPages] = useState(10);
@@ -23,31 +25,34 @@ export function TodayFinanceSchedule() {
       id: '3',
       name: 'Conta de Energia',
       value: 386.32,
-      status: 'DELAYED',
+      status: 'PAYED',
     },
   ]);
 
   return (
-    <View className="w-full h-4/6 mt-5 rounded-lg border-2 border-zinc-100 bg-primary_800 overflow-hidden">
-      <View className="border-b-2 border-zinc-100 w-full px-2 bg-primary_800 rounded-lg">
-        <View className="w-full justify-between flex-row items-center">
-          <View className="flex-row items-center">
-            <AntDesign name="calendar" size={18} color="white" />
-            <Text className="text-zinc-100 font-semibold text-xl ml-1">Agenda do dia</Text>
-          </View>
-          <TouchableOpacity
-            className="p-2 bg-green-700 rounded-lg mt-2 flex-row items-center"
-            onPress={() => {}}
-          >
-            <AntDesign name="pluscircleo" size={18} color="white" />
-            <Text className="ml-1 text-zinc-100 font-bold">Novo Lançamento</Text>
-          </TouchableOpacity>
-        </View>
-        <View className="w-full flex-row justify-between p-2 mt-2">
-          <Text className="text-zinc-100">Cliente</Text>
-          <Text className="text-zinc-100">Situação</Text>
-        </View>
-      </View>
+    <TableContainer
+      title="Agenda do dia"
+      pages={pages}
+      setCurrentPage={setCurrentPage}
+      icon={<AntDesign name="calendar" size={18} color="white" />}
+      statusOptions={[
+        {
+          label: 'Pendente',
+          value: 'PENDING',
+        },
+      ]}
+      filterOptions={{
+        page: currentPage,
+        query: '',
+        status: 'PENDING',
+        limit: 10,
+        type: 'status',
+      }}
+      setFilterOptions={() => {}}
+      addButtonTitle="Adicionar"
+      addButtonPress={() => {}}
+      className="h-[55%]"
+    >
       <FlatList
         data={scheduleItems}
         className="px-2"
@@ -60,15 +65,11 @@ export function TodayFinanceSchedule() {
                 {item.value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
               </Text>
             </View>
-            <View>
-              <Text>{item.status}</Text>
-            </View>
+            <StatusCard status={item.status} />
           </View>
         )}
       />
-      <View className="border-t-2 border-zinc-100 px-2 w-full justify-center items-center">
-        <Pagination totalPages={pages} currentPage={currentPage} onPageChange={setCurrentPage} />
-      </View>
-    </View>
+      <NewScheduleModal />
+    </TableContainer>
   );
 }

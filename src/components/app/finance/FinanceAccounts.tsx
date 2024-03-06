@@ -2,6 +2,7 @@ import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { useState } from 'react';
 import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import { Pagination } from '../../global/Pagination';
+import { NewBankAccountModal } from './modal/NewBankAccountModal';
 export function FinanceAccount() {
   const [pages, setPages] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,6 +61,7 @@ export function FinanceAccount() {
       <View className="border-t-2 border-zinc-100 px-2 w-full justify-center items-center">
         <Pagination totalPages={pages} currentPage={currentPage} onPageChange={setCurrentPage} />
       </View>
+      <NewBankAccountModal />
     </View>
   );
 }
