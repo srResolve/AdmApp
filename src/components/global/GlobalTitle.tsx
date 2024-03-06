@@ -1,13 +1,14 @@
 import { Text, View } from 'react-native';
 
 interface Props {
-  title: string;
+  text: string;
 }
 
-export function GlobalTitle({ title }: Props) {
+export function GlobalTitle({ text }: Props) {
   return (
-    <View className="w-full px-4 mt-16">
-      <Text className="text-zinc-50 font-bold text-2xl">{title}</Text>
+    <View className="w-full justify-end items-center">
+      <Text className="text-zinc-100 font-bold text-2xl mt-12">Bem Vindo!</Text>
+      <Text className="text-center text-zinc-300 font-semibold text-sm">{text}</Text>
     </View>
   );
 }
