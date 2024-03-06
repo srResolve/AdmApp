@@ -3,6 +3,7 @@ export interface Task {
   name: string;
   quantity: number;
   value: number;
+  action?: 'CREATE' | 'UPDATE' | 'DELETE';
 }
 
 export interface Budget {
@@ -13,7 +14,10 @@ export interface Budget {
   };
   status: 'PENDING' | 'APPROVED' | 'REFUSED' | 'COMPLETE';
   tasks: Task[];
+  products: Task[];
   totalValue: number;
+  observation: string | undefined;
+  due_date: Date;
 }
 
 export interface Client {
