@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 import { StatusCard } from '../../global/StatusCard';
+import { BudgetDetailsModal } from './BudgetDetailsModal';
 
 interface Props extends TouchableOpacityProps {
   item: {
@@ -9,12 +11,16 @@ interface Props extends TouchableOpacityProps {
     };
     status: 'PENDING' | 'APPROVED' | 'REFUSED' | 'COMPLETE';
   };
+  handleUpdate: () => void;
 }
 
-export function BudgetTableCard({ item, ...rest }: Props) {
+export function BudgetTableCard({ item, handleUpdate, ...rest }: Props) {
+  const [budgetDetailsModal, setBudgetDetailsModal] = useState(false);
+
   return (
     <TouchableOpacity
       className="flex-row justify-between p-1 px-2 items-center bg-primary_400 mt-2 rounded-lg border border-zinc-100"
+      onPress={() => setBudgetDetailsModal(true)}
       {...rest}
     >
       <View className="w-4/6">
@@ -26,6 +32,12 @@ export function BudgetTableCard({ item, ...rest }: Props) {
         </Text>
       </View>
       <StatusCard status={item.status} />
+      <BudgetDetailsModal
+        open={budgetDetailsModal}
+        setOpen={setBudgetDetailsModal}
+        handleUpdate={handleUpdate}
+        budget={item}
+      />
     </TouchableOpacity>
   );
 }
