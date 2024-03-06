@@ -23,7 +23,7 @@ export function EditTaskAndProductModal({ title, open, setOpen, data, handleEdit
   const [formErrors, setFormErrors] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit } = useForm<any>({
     defaultValues: {
       name: data.name,
       quantity: data.quantity.toString(),
