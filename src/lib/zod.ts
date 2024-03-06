@@ -67,6 +67,44 @@ export const ZodCreateBudgetValidation = z.object({
     .optional(),
 });
 
+export const ZodUpdateBudgetValidation = z.object({
+  due_date: z.coerce.date().optional(),
+  observation: z.string().optional(),
+  photo: z
+    .array(
+      z.object({
+        photo_key: z.string(),
+        photo_location: z.string(),
+      })
+    )
+    .optional(),
+  tasks: z
+    .array(
+      z.object({
+        id: z.string().optional(),
+        action: z.enum(['CREATE', 'UPDATE', 'DELETE']),
+        name: z.string(),
+        value: z.number(),
+        quantity: z.number(),
+        description: z.string().optional(),
+        photo_key: z.string().optional(),
+        photo_location: z.string().optional(),
+      })
+    )
+    .optional(),
+  products: z
+    .array(
+      z.object({
+        id: z.string(),
+        action: z.enum(['CREATE', 'UPDATE', 'DELETE']),
+        name: z.string(),
+        value: z.number(),
+        quantity: z.number(),
+      })
+    )
+    .optional(),
+});
+
 export const zodErrorHandler = (error: ZodError) => {
   const field = errorList.find((field) => field.name === error.issues[0].path[0]);
   return field?.message || 'Verifique os dados inseridos';
