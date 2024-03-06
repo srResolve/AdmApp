@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { ZodError } from 'zod';
 import { BaseButton } from '../../components/global/BaseButton';
-import { GlobalTitle } from '../../components/global/GlobalTitle';
 import { InputForm } from '../../components/global/input/FormInput';
 import { AuthPutAPI, authGetAPI } from '../../lib/axios';
 import { ZodEditProfileValidation } from '../../lib/zod';
@@ -71,7 +70,6 @@ export default function Profile() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View className="flex-1 items-center  bg-primary_800">
-        <GlobalTitle title="Meu Perfil" />
         <Image source={require('../../../assets/logo.png')} className="w-32 h-32" />
         {loading ? (
           <ActivityIndicator className="mt-24" size="large" />
