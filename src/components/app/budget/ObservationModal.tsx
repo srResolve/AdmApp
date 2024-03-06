@@ -5,7 +5,7 @@ import { BaseInput } from '../../global/input/BaseInput';
 interface Props {
   open: boolean;
   setOpen: (open: boolean) => void;
-  observation: string;
+  observation: string | undefined;
   setObservation: (observation: string) => void;
 }
 
