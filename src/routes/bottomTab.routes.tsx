@@ -76,12 +76,12 @@ export function AppRoutes() {
       />
       <Screen
         name="Schedule"
-        listeners={{
-          tabPress: (e) => {
-            // Prevent default action
-            e.preventDefault();
-          },
-        }}
+        // listeners={{
+        //   tabPress: (e) => {
+        //     // Prevent default action
+        //     e.preventDefault();
+        //   },
+        // }}
         component={Schedule}
         options={{
           tabBarLabel: '',
@@ -101,12 +101,12 @@ export function AppRoutes() {
       />
       <Screen
         name="Finance"
-        listeners={{
-          tabPress: (e) => {
-            // Prevent default action
-            e.preventDefault();
-          },
-        }}
+        // listeners={{
+        //   tabPress: (e) => {
+        //     // Prevent default action
+        //     e.preventDefault();
+        //   },
+        // }}
         component={Finance}
         options={{
           tabBarLabel: '',
