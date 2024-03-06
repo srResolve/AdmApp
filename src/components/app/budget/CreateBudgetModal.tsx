@@ -2,7 +2,6 @@ import {
   AntDesign,
   Entypo,
   Feather,
-  FontAwesome,
   MaterialCommunityIcons,
   MaterialIcons,
 } from '@expo/vector-icons';
@@ -17,13 +16,14 @@ import { Client, Task } from '../../../@types/types';
 import { AuthPostAPI } from '../../../lib/axios';
 import { ZodCreateBudgetValidation, zodErrorHandler } from '../../../lib/zod';
 import { createPdf } from '../../../utils/htmlPdf';
+import { totalPriceCalc } from '../../../utils/totalPriceCalculator';
 import { AnimatedButton } from '../../global/AnimatedButton';
 import { BackButton } from '../../global/BackButton';
 import { BaseButton } from '../../global/BaseButton';
-import * as Button from '../../global/Button';
 import { ButtonWithIcon } from '../../global/ButtonWithIcon';
 import { ClientModal } from '../../global/ClientModal/ClientModal';
 import { DatePickerModal } from '../../global/DatePickerModal';
+import { DoubleIconButton } from '../../global/DoubleIconButton';
 import PhotoPick from '../../global/SelectPhoto';
 import { CreateTaskAndProductModal } from './CreateTaskAndProductModal';
 import { ObservationModal } from './ObservationModal';
@@ -132,47 +132,40 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
             <AnimatedButton open={orderOpen} title="Pedido" setOpen={setOrderOpen} />
             {orderOpen && (
               <>
-                <Button.Root variant="selector_secondary" onPress={() => setCreateTaskModal(true)}>
-                  <View className="flex-row items-center gap-2">
-                    <Entypo name="clipboard" size={24} color="white" />
-                    <Button.Title title="Serviços" className="text-zinc-100 text-xl" />
-                  </View>
-                  {services.length === 0 ? (
-                    <AntDesign name="pluscircleo" size={24} color="white" />
-                  ) : (
-                    <View className="flex-row items-center ">
-                      <Text className="text-sm text-zinc-300 font-bold">
-                        {services
-                          .map((t) => t.value * t.quantity)
-                          .reduce((a, b) => a + b)
-                          .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
-                      </Text>
-                      <MaterialIcons name="chevron-right" size={30} color="green" />
-                    </View>
-                  )}
-                </Button.Root>
-                <Button.Root
-                  variant="selector_secondary"
+                <DoubleIconButton
+                  title="Serviços"
+                  leftIcon={<Entypo name="clipboard" size={24} color="white" />}
+                  onPress={() => setCreateTaskModal(true)}
+                  rightIcon={
+                    services.length === 0 ? (
+                      <AntDesign name="pluscircleo" size={24} color="white" />
+                    ) : (
+                      <View className="flex-row items-center ">
+                        <Text className="text-sm text-zinc-300 font-bold">
+                          {totalPriceCalc(services)}
+                        </Text>
+                        <MaterialIcons name="chevron-right" size={30} color="green" />
+                      </View>
+                    )
+                  }
+                />
+                <DoubleIconButton
+                  title="Materiais"
                   onPress={() => setCreateProductModal(true)}
-                >
-                  <View className="flex-row items-center gap-2">
-                    <Feather name="shopping-cart" size={24} color="white" />
-                    <Button.Title title="Produtos" className="text-zinc-100 text-xl" />
-                  </View>
-                  {products.length === 0 ? (
-                    <AntDesign name="pluscircleo" size={24} color="white" />
-                  ) : (
-                    <View className="flex-row items-center ">
-                      <Text className="text-sm text-zinc-300 font-bold">
-                        {services
-                          .map((t) => t.value * t.quantity)
-                          .reduce((a, b) => a + b)
-                          .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
-                      </Text>
-                      <MaterialIcons name="chevron-right" size={30} color="green" />
-                    </View>
-                  )}
-                </Button.Root>
+                  leftIcon={<Feather name="shopping-cart" size={24} color="white" />}
+                  rightIcon={
+                    products.length === 0 ? (
+                      <AntDesign name="pluscircleo" size={24} color="white" />
+                    ) : (
+                      <View className="flex-row items-center ">
+                        <Text className="text-sm text-zinc-300 font-bold">
+                          {totalPriceCalc(products)}
+                        </Text>
+                        <MaterialIcons name="chevron-right" size={30} color="green" />
+                      </View>
+                    )
+                  }
+                />
               </>
             )}
             <AnimatedButton
@@ -182,42 +175,42 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
             />
             {extraInfoOpen && (
               <>
-                <Button.Root variant="selector_secondary" onPress={() => setExpireDateModal(true)}>
-                  <View className="flex-row items-center gap-2">
-                    <AntDesign name="clockcircle" size={24} color="white" />
-                    <Button.Title title="Validade do Orçamento" className="text-zinc-100 text-lg" />
-                  </View>
-                  {expireDate === null ? (
-                    <AntDesign name="pluscircleo" size={24} color="white" />
-                  ) : (
-                    <AntDesign name="checkcircleo" size={24} color="green" />
-                  )}
-                </Button.Root>
-                <Button.Root
-                  variant="selector_secondary"
+                <DoubleIconButton
+                  leftIcon={<AntDesign name="clockcircle" size={24} color="white" />}
+                  title="Validade do Orçamento"
+                  onPress={() => setExpireDateModal(true)}
+                  rightIcon={
+                    expireDate === null ? (
+                      <AntDesign name="pluscircleo" size={24} color="white" />
+                    ) : (
+                      <AntDesign name="checkcircleo" size={24} color="green" />
+                    )
+                  }
+                />
+                <DoubleIconButton
+                  leftIcon={<AntDesign name="calendar" size={24} color="white" />}
+                  title="Prazo de execução"
                   onPress={() => setExecutionDateModal(true)}
-                >
-                  <View className="flex-row items-center gap-2">
-                    <AntDesign name="calendar" size={24} color="white" />
-                    <Button.Title title="Prazo de execução" className="text-zinc-100 text-lg" />
-                  </View>
-                  {executionDate === null ? (
-                    <AntDesign name="pluscircleo" size={24} color="white" />
-                  ) : (
-                    <AntDesign name="checkcircleo" size={24} color="green" />
-                  )}
-                </Button.Root>
-                <Button.Root variant="selector_secondary" onPress={() => setObservationModal(true)}>
-                  <View className="flex-row items-center gap-2">
-                    <Feather name="alert-circle" size={24} color="white" />
-                    <Button.Title title="Observações" className="text-zinc-100 text-lg" />
-                  </View>
-                  {observation === '' ? (
-                    <AntDesign name="pluscircleo" size={24} color="white" />
-                  ) : (
-                    <AntDesign name="checkcircleo" size={24} color="green" />
-                  )}
-                </Button.Root>
+                  rightIcon={
+                    expireDate === null ? (
+                      <AntDesign name="pluscircleo" size={24} color="white" />
+                    ) : (
+                      <AntDesign name="checkcircleo" size={24} color="green" />
+                    )
+                  }
+                />
+                <DoubleIconButton
+                  leftIcon={<Feather name="alert-circle" size={24} color="white" />}
+                  title="Observações"
+                  onPress={() => setObservationModal(true)}
+                  rightIcon={
+                    expireDate === null ? (
+                      <AntDesign name="pluscircleo" size={24} color="white" />
+                    ) : (
+                      <AntDesign name="checkcircleo" size={24} color="green" />
+                    )
+                  }
+                />
               </>
             )}
             <AnimatedButton open={photoOpen} title="Fotos" setOpen={setPhotoOpen} />
@@ -242,13 +235,13 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
                   ref={actionSheetRef}
                   onImagemChange={(data) => setImages((old) => [...old, data])}
                 />
-                <Button.Root variant="selector" onPress={() => actionSheetRef.current?.show()}>
-                  <View className="flex-row gap-2 items-center justify-center">
-                    <FontAwesome name="photo" size={24} color="white" />
-                    <Button.Title title="Nova Foto" />
-                  </View>
-                  <AntDesign name="pluscircleo" size={24} color="white" />
-                </Button.Root>
+                <DoubleIconButton
+                  leftIcon={<Feather name="camera" size={24} color="white" />}
+                  title="Adicionar Fotos"
+                  className="bg-primary_800"
+                  onPress={() => actionSheetRef.current?.show()}
+                  rightIcon={<AntDesign name="pluscircleo" size={24} color="white" />}
+                />
               </View>
             )}
             <View className="items-center flex-1 justify-end  ">
@@ -260,7 +253,12 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
                 variant="confirmation"
                 className="w-auto px-4"
               />
-              <BaseButton title="Voltar" variant="base" className="w-auto px-4" />
+              <BaseButton
+                title="Voltar"
+                variant="base"
+                className="w-auto px-4"
+                onPress={() => setOpen(false)}
+              />
             </View>
           </View>
 
