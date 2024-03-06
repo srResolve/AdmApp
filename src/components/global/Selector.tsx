@@ -8,9 +8,10 @@ interface Props {
   }[];
   handleSelect: (value: string) => void;
   selectedValue: string;
+  style?: any;
 }
 
-export function Selector({ options, handleSelect, selectedValue }: Props) {
+export function Selector({ options, handleSelect, selectedValue, style }: Props) {
   const [selectedLanguage, setSelectedLanguage] = useState('java');
   const pickerRef = useRef<any>();
 
@@ -34,6 +35,7 @@ export function Selector({ options, handleSelect, selectedValue }: Props) {
             color: 'white',
             paddingRight: 50,
             backgroundColor: '#7D8FE8',
+            ...style,
           },
           inputAndroid: {
             fontSize: 18,
@@ -47,6 +49,7 @@ export function Selector({ options, handleSelect, selectedValue }: Props) {
             color: 'white',
             paddingRight: 50,
             backgroundColor: '#7D8FE8',
+            ...style,
           },
           iconContainer: {
             marginTop: 26,
