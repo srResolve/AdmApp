@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Controller } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 import { TextInputProps } from 'react-native';
 
 import CurrencyInput from 'react-native-currency-input';
@@ -9,7 +9,7 @@ import { BaseInput } from './BaseInput';
 import { PasswordInput } from './PasswordInput';
 
 interface Props extends TextInputProps {
-  control: any;
+  control: Control;
   name: string;
   containerStyle?: string;
   error: string[];
