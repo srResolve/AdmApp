@@ -1,15 +1,12 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { printToFileAsync } from 'expo-print';
-import { shareAsync } from 'expo-sharing';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, FlatList, View } from 'react-native';
+import { Alert, FlatList, View } from 'react-native';
 import { Budget } from '../../@types/types';
-import { BudgetDetailsModal } from '../../components/app/budget/BudgetDetailsModal';
 import { BudgetTableCard } from '../../components/app/budget/BudgetTableCard';
 import { CreateBudgetModal } from '../../components/app/budget/CreateBudgetModal';
+import { GlobalTitle } from '../../components/global/GlobalTitle';
 import { TableContainer } from '../../components/global/TableContainer';
 import { authGetAPI } from '../../lib/axios';
-import { createPdf } from '../../utils/htmlPdf';
 import { BudgetStatusOptions } from '../../utils/statusOptions';
 export default function Budgets() {
   const [pages, setPages] = useState(0);
@@ -23,7 +20,6 @@ export default function Budgets() {
   const [loading, setLoading] = useState(false);
   const [budgets, setBudgets] = useState<Budget[]>([]);
   const [createBudgetModal, setCreateBudgetModal] = useState(false);
-  const [budgetDetailsModal, setBudgetDetailsModal] = useState(false);
 
   useEffect(() => {
     getBudgets();
@@ -44,50 +40,31 @@ export default function Budgets() {
     setPages(connect.body.pages);
   }
 
-  async function createPDF() {
-    const file = await printToFileAsync({
-      html: createPdf(data),
-      base64: false,
-      height: 842,
-      width: 595,
-    });
-
-    await shareAsync(file.uri);
-  }
-
   return (
     <View className="flex-1 items-center px-4 bg-primary_800">
-      <View className="w-full h-32 justify-end"></View>
+      <GlobalTitle text="Clique em um orçamento para ver os detalhes, busque um orçamento específico ou crie um novo clicando em 'Novo Orçamento'." />
       <TableContainer
         addButtonPress={() => setCreateBudgetModal(true)}
         addButtonTitle="Novo Orçamento"
         statusOptions={BudgetStatusOptions}
         title="Orçamentos"
         pages={pages}
+        loading={loading}
         filterOptions={filterOptions}
         setFilterOptions={setFilterOptions}
         icon={<FontAwesome5 name="clipboard-list" size={24} color="white" />}
         setCurrentPage={(page) => setFilterOptions({ ...filterOptions, page })}
       >
-        {loading ? (
-          <View className="flex-1 items-center justify-center">
-            <ActivityIndicator size="large" color="white" />
-          </View>
-        ) : (
-          <FlatList
-            data={budgets}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ flexGrow: 1, zIndex: 10 }}
-            className="px-2"
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <BudgetTableCard onPress={() => setBudgetDetailsModal(true)} item={item} />
-            )}
-          />
-        )}
+        <FlatList
+          data={budgets}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ flexGrow: 1, zIndex: 10 }}
+          className="px-2"
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <BudgetTableCard item={item} handleUpdate={getBudgets} />}
+        />
       </TableContainer>
       <CreateBudgetModal open={createBudgetModal} setOpen={setCreateBudgetModal} />
-      <BudgetDetailsModal open={budgetDetailsModal} setOpen={setBudgetDetailsModal} />
     </View>
   );
 }
