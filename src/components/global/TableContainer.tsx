@@ -1,14 +1,22 @@
 import { AntDesign } from '@expo/vector-icons';
-import { Keyboard, Text, TouchableWithoutFeedback, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Keyboard,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+  ViewProps,
+} from 'react-native';
 import { ButtonWithIcon } from './ButtonWithIcon';
 import { Pagination } from './Pagination';
 import { Selector } from './Selector';
 import { IconBaseInput } from './input/IconBaseInput';
 
-interface Props {
+interface Props extends ViewProps {
   children: React.ReactNode;
   title: string;
   pages: number;
+  loading: boolean;
   icon: React.ReactNode;
   addButtonTitle: string;
   addButtonPress: () => void;
@@ -40,14 +48,20 @@ export const TableContainer = ({
   setCurrentPage,
   icon,
   statusOptions,
+  loading,
   filterOptions,
   setFilterOptions,
   addButtonTitle,
   addButtonPress,
+  className,
+  ...rest
 }: Props) => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View className="w-full h-4/6 mt-5 rounded-lg border-2 border-zinc-100 bg-primary_800 overflow-hidden">
+      <View
+        className={`w-full h-4/6 mt-5 rounded-lg border-2 border-zinc-100 bg-primary_800 overflow-hidden ${className}`}
+        {...rest}
+      >
         <View className="border-b-2 border-zinc-100 w-full px-2 bg-primary_800 ">
           <View className="w-full justify-between flex-row items-center py-2 ">
             <View className="flex-row">
@@ -94,7 +108,13 @@ export const TableContainer = ({
             />
           </View>
         </View>
-        {children}
+        {loading ? (
+          <View className="flex-1 items-center justify-center">
+            <ActivityIndicator size="large" color="white" />
+          </View>
+        ) : (
+          children
+        )}
         <View className="border-t-2 mt-2 border-zinc-100 px-2 w-full justify-center items-center">
           <Pagination
             totalPages={pages}
