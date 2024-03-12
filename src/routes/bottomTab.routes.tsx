@@ -127,12 +127,12 @@ export function AppRoutes() {
       <Screen
         name="Profile"
         component={Profile}
-        listeners={{
-          tabPress: (e) => {
-            // Prevent default action
-            e.preventDefault();
-          },
-        }}
+        // listeners={{
+        //   tabPress: (e) => {
+        //     // Prevent default action
+        //     e.preventDefault();
+        //   },
+        // }}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ focused }) => (
