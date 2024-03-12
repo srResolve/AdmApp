@@ -21,13 +21,14 @@ export function Pagination({ totalPages, currentPage, onPageChange }: Props) {
       >
         <MaterialIcons name="chevron-left" size={50} color="white" />
       </TouchableOpacity>
+      <View className=' flex-1 items-center justify-center'>
       <FlatList
         data={pages}
         horizontal
+        className=''
         contentContainerStyle={{
           alignItems: 'center',
           justifyContent: 'center',
-          flex: 1,
         }}
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.toString()}
@@ -44,6 +45,7 @@ export function Pagination({ totalPages, currentPage, onPageChange }: Props) {
           </TouchableOpacity>
         )}
       />
+      </View>
       <TouchableOpacity
         onPress={() => onPageChange(currentPage < totalPages ? currentPage + 1 : currentPage)}
       >
