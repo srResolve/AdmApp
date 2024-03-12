@@ -25,7 +25,6 @@ export const PhotoPick = forwardRef<ActionSheetRef, PhotoPickProps>((props, ref)
 
     try {
       const serverSend = await PostAPI('/upload?folder=budget', formData);
-      console.log(serverSend);
       if (serverSend.status === 200) {
         setLoading(false);
         return {
