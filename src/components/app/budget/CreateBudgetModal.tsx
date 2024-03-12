@@ -250,6 +250,7 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
                 loading={loading}
                 onPress={createBudget}
                 title="Criar orçamento"
+                titleClassName="text-lg"
                 variant="confirmation"
                 className="w-auto px-4"
               />
