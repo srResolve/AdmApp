@@ -105,6 +105,18 @@ export const ZodUpdateBudgetValidation = z.object({
     .optional(),
 });
 
+export const ZodCreateSchedulePaymentValidation = z.object({
+  date: z.coerce.date(),
+  name: z.string(),
+  value: z.coerce.number(),
+  type: z.enum(['INCOME', 'OUTCOME']),
+  categoryId: z.string(),
+});
+export const ZodCreateBankAccountValidation = z.object({
+  name: z.string(),
+  initialBalance: z.coerce.number(),
+});
+
 export const zodErrorHandler = (error: ZodError) => {
   const field = errorList.find((field) => field.name === error.issues[0].path[0]);
   return field?.message || 'Verifique os dados inseridos';
