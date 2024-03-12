@@ -14,6 +14,7 @@ import { BaseButton } from '../../components/global/BaseButton';
 import { InputForm } from '../../components/global/input/FormInput';
 import { AuthPutAPI, authGetAPI } from '../../lib/axios';
 import { ZodEditProfileValidation } from '../../lib/zod';
+import { logout } from '../../utils/tokenManagement';
 
 export default function Profile() {
   const navigation = useNavigation<any>();
@@ -62,7 +63,7 @@ export default function Profile() {
     getProfile();
   }, []);
 
-  async function logout() {
+  async function handleLogout() {
     await logout();
     return navigation.dispatch(StackActions.replace('Login'));
   }
@@ -70,7 +71,7 @@ export default function Profile() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View className="flex-1 items-center  bg-primary_800">
-        <Image source={require('../../../assets/logo.png')} className="w-32 h-32" />
+        <Image source={require('../../../assets/logo.png')} className="w-32 h-32 mt-24" />
         {loading ? (
           <ActivityIndicator className="mt-24" size="large" />
         ) : (
@@ -109,7 +110,7 @@ export default function Profile() {
               onPress={() =>
                 Alert.alert('Sair', 'Deseja realmente sair?', [
                   { text: 'Cancelar', onPress: () => {}, style: 'cancel' },
-                  { text: 'Sair', onPress: logout },
+                  { text: 'Sair', onPress: handleLogout },
                 ])
               }
               className="bg-blue-950 rounded-lg "
