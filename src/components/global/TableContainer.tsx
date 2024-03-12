@@ -31,6 +31,7 @@ interface Props extends ViewProps {
     limit: number;
     type: string;
   };
+  filter?: boolean;
   setFilterOptions: (options: {
     page: number;
     query: string;
@@ -54,6 +55,7 @@ export const TableContainer = ({
   addButtonTitle,
   addButtonPress,
   className,
+  filter = true,
   ...rest
 }: Props) => {
   return (
@@ -64,7 +66,7 @@ export const TableContainer = ({
       >
         <View className="border-b-2 border-zinc-100 w-full px-2 bg-primary_800 ">
           <View className="w-full justify-between flex-row items-center py-2 ">
-            <View className="flex-row">
+            <View className="flex-row items-center">
               {icon}
               <Text className="text-zinc-100 ml-2 font-bold text-xl">{title}</Text>
             </View>
@@ -75,38 +77,40 @@ export const TableContainer = ({
               icon={<AntDesign name="pluscircleo" size={18} color="white" />}
             />
           </View>
-          <View className="py-2 flex-row justify-between items-center">
-            {filterOptions.type === 'status' ? (
+          {filter && (
+            <View className="py-2 flex-row justify-between items-center">
+              {filterOptions.type === 'status' ? (
+                <Selector
+                  options={statusOptions}
+                  handleSelect={(item: string) =>
+                    setFilterOptions({ ...filterOptions, status: item })
+                  }
+                  selectedValue={filterOptions.status}
+                />
+              ) : (
+                <IconBaseInput
+                  error={[]}
+                  name="search"
+                  keyboardType={filterOptions.type === 'name' ? 'default' : 'numeric'}
+                  value={filterOptions.query}
+                  onChangeText={(value) => setFilterOptions({ ...filterOptions, query: value })}
+                  placeholder="Pesquisar..."
+                  containerStyle="pr-2 w-6/12 h-12 border-zinc-100"
+                  icon={<AntDesign name="search1" size={24} color="white" />}
+                />
+              )}
               <Selector
-                options={statusOptions}
-                handleSelect={(item: string) =>
-                  setFilterOptions({ ...filterOptions, status: item })
-                }
-                selectedValue={filterOptions.status}
+                options={[
+                  { label: 'Nome', value: 'name' },
+                  { label: 'Código', value: 'code' },
+                  { label: 'Valor', value: 'value' },
+                  { label: 'Status', value: 'status' },
+                ]}
+                handleSelect={(item: string) => setFilterOptions({ ...filterOptions, type: item })}
+                selectedValue={filterOptions.type}
               />
-            ) : (
-              <IconBaseInput
-                error={[]}
-                name="search"
-                keyboardType={filterOptions.type === 'name' ? 'default' : 'numeric'}
-                value={filterOptions.query}
-                onChangeText={(value) => setFilterOptions({ ...filterOptions, query: value })}
-                placeholder="Pesquisar..."
-                containerStyle="pr-2 w-6/12 h-12 border-zinc-100"
-                icon={<AntDesign name="search1" size={24} color="white" />}
-              />
-            )}
-            <Selector
-              options={[
-                { label: 'Nome', value: 'name' },
-                { label: 'Código', value: 'code' },
-                { label: 'Valor', value: 'value' },
-                { label: 'Status', value: 'status' },
-              ]}
-              handleSelect={(item: string) => setFilterOptions({ ...filterOptions, type: item })}
-              selectedValue={filterOptions.type}
-            />
-          </View>
+            </View>
+          )}
         </View>
         {loading ? (
           <View className="flex-1 items-center justify-center">
