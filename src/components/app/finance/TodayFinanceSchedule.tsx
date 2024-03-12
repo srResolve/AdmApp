@@ -1,75 +1,82 @@
 import { AntDesign } from '@expo/vector-icons';
-import { useState } from 'react';
-import { FlatList, Text, View } from 'react-native';
-import { StatusCard } from '../../global/StatusCard';
+import { useEffect, useState } from 'react';
+import { Alert, FlatList, Text, View } from 'react-native';
+import { authGetAPI } from '../../../lib/axios';
 import { TableContainer } from '../../global/TableContainer';
+import { FinanceScheduleCard } from './cards/FinanceScheduleCard';
 import { NewScheduleModal } from './modal/NewScheduleModal';
 
 export function TodayFinanceSchedule() {
-  const [pages, setPages] = useState(10);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [scheduleItems, setScheduleItems] = useState([
-    {
-      id: '1',
-      name: 'Conta de Energia',
-      value: 386.32,
-      status: 'PENDING',
-    },
-    {
-      id: '2',
-      name: 'Conta de Energia',
-      value: 386.32,
-      status: 'PAYED',
-    },
-    {
-      id: '3',
-      name: 'Conta de Energia',
-      value: 386.32,
-      status: 'PAYED',
-    },
-  ]);
+  const [pages, setPages] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [scheduleItems, setScheduleItems] = useState<any[] | undefined>();
+  const [newScheduleModal, setNewScheduleModal] = useState(false);
+  const [filterOptions, setFilterOptions] = useState({
+    page: 1,
+    query: '',
+    status: 'PENDING',
+    limit: 10,
+    type: 'status',
+  });
+  async function fetchSchedule() {
+    setLoading(true);
+    const connect = await authGetAPI(
+      `/finance/schedule/today?page=${filterOptions.page}&query=${filterOptions.query}&status=${filterOptions.status}&limit=${filterOptions.limit}&type=${filterOptions.type}`
+    );
+
+    setLoading(false);
+    if (connect.status !== 200) {
+      return Alert.alert('Erro', connect.body);
+    }
+    setPages(connect.body.pages);
+    setScheduleItems(connect.body.transactions);
+  }
+
+  useEffect(() => {
+    fetchSchedule();
+  }, []);
 
   return (
     <TableContainer
+      loading={loading}
       title="Agenda do dia"
       pages={pages}
-      setCurrentPage={setCurrentPage}
+      setCurrentPage={(page) => setFilterOptions({ ...filterOptions, page })}
       icon={<AntDesign name="calendar" size={18} color="white" />}
       statusOptions={[
         {
           label: 'Pendente',
           value: 'PENDING',
         },
+        {
+          label: 'Pago',
+          value: 'PAYED',
+        },
       ]}
-      filterOptions={{
-        page: currentPage,
-        query: '',
-        status: 'PENDING',
-        limit: 10,
-        type: 'status',
-      }}
-      setFilterOptions={() => {}}
+      filterOptions={filterOptions}
+      setFilterOptions={setFilterOptions}
       addButtonTitle="Adicionar"
-      addButtonPress={() => {}}
+      filter={false}
+      addButtonPress={() => setNewScheduleModal(true)}
       className="h-[55%]"
     >
-      <FlatList
-        data={scheduleItems}
-        className="px-2"
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View className="flex-row justify-between p-1 px-2 items-center bg-primary_400 mt-2 rounded-lg border border-zinc-100">
-            <View>
-              <Text className="text-zinc-100 font-semibold text-lg">{item.name}</Text>
-              <Text className="text-green-900 font-semibold text-lg">
-                {item.value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
-              </Text>
-            </View>
-            <StatusCard status={item.status} />
-          </View>
-        )}
+      {scheduleItems && scheduleItems.length > 0 ? (
+        <FlatList
+          data={scheduleItems}
+          className="px-2"
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <FinanceScheduleCard item={item} />}
+        />
+      ) : (
+        <View className="flex-1 items-center justify-center">
+          <Text className="text-zinc-100 font-semibold text-lg">Nenhum item encontrado</Text>
+        </View>
+      )}
+      <NewScheduleModal
+        open={newScheduleModal}
+        setOpen={setNewScheduleModal}
+        handleUpdate={fetchSchedule}
       />
-      <NewScheduleModal />
     </TableContainer>
   );
 }
