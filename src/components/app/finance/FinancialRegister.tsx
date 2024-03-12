@@ -1,58 +1,67 @@
-import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
-import { useState } from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
-import { Pagination } from '../../global/Pagination';
+import { FontAwesome5 } from '@expo/vector-icons';
+
+import { useEffect, useState } from 'react';
+import { Alert, FlatList, Text, View } from 'react-native';
+import { authGetAPI } from '../../../lib/axios';
+import { TableContainer } from '../../global/TableContainer';
 import { NewEntranceModal } from './modal/NewEntranceModal';
 export function FinancialRegister() {
-  const [pages, setPages] = useState(10);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [financialList, setFinancialList] = useState([
-    {
-      id: '1',
-      name: 'Abastecimento',
-      value: 386.32,
-      type: 'OUTCOME',
-      category: 'Veículos',
-    },
-    {
-      id: '2',
-      name: 'Compra de maquina X',
-      value: 3500,
-      type: 'OUTCOME',
-      category: 'Equipamento',
-    },
-    {
-      id: '3',
-      name: 'Pagamento Cliente X',
-      value: 500,
-      type: 'INCOME',
-      category: 'Cliente',
-    },
-  ]);
+  const [pages, setPages] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [tableItems, setTableItems] = useState();
+  const [modal, setModal] = useState(false);
+  const [filterOptions, setFilterOptions] = useState({
+    page: 1,
+    query: '',
+    status: 'PENDING',
+    limit: 10,
+    type: 'status',
+  });
+
+  async function fetchTransactions() {
+    setLoading(true);
+    const connect = await authGetAPI(
+      `/finance/transaction?page=${filterOptions.page}&query=${filterOptions.query}&status=${filterOptions.status}&limit=${filterOptions.limit}&type=${filterOptions.type}`
+    );
+    setLoading(false);
+
+    if (connect.status !== 200) {
+      return Alert.alert('Erro', connect.body);
+    }
+
+    setPages(connect.body.pages);
+    setTableItems(connect.body.transactions);
+  }
+
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
 
   return (
-    <View className="w-full h-4/6 mt-5 rounded-lg border-2 border-zinc-100 bg-primary_800 overflow-hidden">
-      <View className="border-b-2 border-zinc-100 w-full px-2 bg-primary_800 rounded-lg">
-        <View className="w-full justify-between flex-row items-center">
-          <View className="flex-row items-center">
-            <FontAwesome5 name="funnel-dollar" size={18} color="white" />
-            <Text className="text-zinc-100 font-semibold text-xl ml-1">Entradas e Saídas</Text>
-          </View>
-          <TouchableOpacity
-            className="p-2 bg-green-700 rounded-lg mt-2 flex-row items-center"
-            onPress={() => {}}
-          >
-            <AntDesign name="pluscircleo" size={18} color="white" />
-            <Text className="ml-1 text-zinc-100 font-bold">Novo Lançamento</Text>
-          </TouchableOpacity>
-        </View>
-        <View className="w-full flex-row justify-between p-2 mt-2">
-          <Text className="text-zinc-100">Cliente</Text>
-          <Text className="text-zinc-100">Situação</Text>
-        </View>
-      </View>
+    <TableContainer
+      loading={loading}
+      title="Entradas e Saídas"
+      pages={pages}
+      setCurrentPage={(page) => setFilterOptions({ ...filterOptions, page })}
+      icon={<FontAwesome5 name="funnel-dollar" size={18} color="white" />}
+      statusOptions={[
+        {
+          label: 'Pendente',
+          value: 'PENDING',
+        },
+        {
+          label: 'Pago',
+          value: 'PAYED',
+        },
+      ]}
+      filterOptions={filterOptions}
+      setFilterOptions={setFilterOptions}
+      addButtonTitle="Adicionar"
+      addButtonPress={() => setModal(true)}
+      className="h-[55%]"
+    >
       <FlatList
-        data={financialList}
+        data={tableItems}
         className="px-2"
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
@@ -68,10 +77,7 @@ export function FinancialRegister() {
           </View>
         )}
       />
-      <View className="border-t-2 border-zinc-100 px-2 w-full justify-center items-center">
-        <Pagination totalPages={pages} currentPage={currentPage} onPageChange={setCurrentPage} />
-      </View>
-      <NewEntranceModal />
-    </View>
+      <NewEntranceModal open={modal} setOpen={setModal} handleUpdate={fetchTransactions} />
+    </TableContainer>
   );
 }
