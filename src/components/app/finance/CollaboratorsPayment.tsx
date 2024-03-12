@@ -1,72 +1,79 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useState } from 'react';
-import { FlatList, Text, View } from 'react-native';
-import { Pagination } from '../../global/Pagination';
+import { useEffect, useState } from 'react';
+import { Alert, FlatList } from 'react-native';
+import { authGetAPI } from '../../../lib/axios';
+import { TableContainer } from '../../global/TableContainer';
+import { CollaboratorWageCard } from './cards/CollaboratorWageCard';
 import { NewCollaboratorFinanceModal } from './modal/NewCollaboratorFinanceModal';
 export function CollaboratorsPayment() {
-  const [pages, setPages] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  const [collaboratorList, setCollaboratorList] = useState([
-    {
-      id: '1',
-      name: 'Gabriel',
-      value: 386.32,
-      email: 'wHkXc@example.com',
-      status: 'PENDING',
-    },
-    {
-      id: '2',
-      name: 'Gabriel',
-      value: 386.32,
-      email: 'wHkXc@example.com',
-      status: 'PAYED',
-    },
-    {
-      id: '3',
-      name: 'Gabriel',
-      value: 386.32,
-      email: 'wHkXc@example.com',
-      status: 'DELAYED',
-    },
-  ]);
+  const [collaboratorList, setCollaboratorList] = useState();
+  const [pages, setPages] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [filterOptions, setFilterOptions] = useState({
+    page: 1,
+    query: '',
+    status: 'PENDING',
+    limit: 10,
+    type: 'status',
+  });
+
+  async function fetchCollaborators() {
+    setLoading(true);
+    const connect = await authGetAPI(
+      `/finance/wage?page=${filterOptions.page}&query=${filterOptions.query}&status=${filterOptions.status}&limit=${filterOptions.limit}&type=${filterOptions.type}`
+    );
+    console.log(connect.body.wage);
+    setLoading(false);
+
+    if (connect.status !== 200) {
+      return Alert.alert('Erro', connect.body);
+    }
+
+    setPages(connect.body.pages);
+    setCollaboratorList(connect.body.wage);
+  }
+
+  useEffect(() => {
+    fetchCollaborators();
+  }, []);
 
   return (
-    <View className="w-full h-4/6 mt-5 rounded-lg border-2 border-zinc-100 bg-primary_800 overflow-hidden">
-      <View className="border-b-2 border-zinc-100 w-full px-2 bg-primary_800 rounded-lg">
-        <View className="w-full justify-between flex-row items-center">
-          <View className="flex-row items-center">
-            <MaterialCommunityIcons name="account-cog-outline" size={20} color="white" />
-            <Text className="text-zinc-100 ml-1 font-semibold text-xl">Colaboradores</Text>
-          </View>
-        </View>
-        <View className="w-full flex-row justify-between p-2 mt-2">
-          <Text className="text-zinc-100">Cliente</Text>
-          <Text className="text-zinc-100">Situação</Text>
-        </View>
-      </View>
+    <TableContainer
+      loading={loading}
+      title="Contas Bancárias"
+      pages={pages}
+      setCurrentPage={(page) => setFilterOptions({ ...filterOptions, page })}
+      icon={<MaterialCommunityIcons name="account-cog-outline" size={20} color="white" />}
+      statusOptions={[
+        {
+          value: 'PENDING',
+          label: 'Pendente',
+        },
+        {
+          value: 'PAYED',
+          label: 'Pago',
+        },
+      ]}
+      filterOptions={filterOptions}
+      setFilterOptions={setFilterOptions}
+      addButtonTitle="Adicionar"
+      addButtonPress={() => setModal(true)}
+      className="h-[55%]"
+    >
       <FlatList
         data={collaboratorList}
         className="px-2"
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View className="flex-row justify-between p-1 px-2 items-center bg-primary_400 mt-2 rounded-lg border border-zinc-100">
-            <View>
-              <Text className="text-zinc-100 font-semibold text-lg">{item.name}</Text>
-              <Text className="text-zinc-800 font-semibold">{item.email}</Text>
-            </View>
-            <View>
-              <Text>
-                {item.value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
-              </Text>
-            </View>
-            <Text>{item.status}</Text>
-          </View>
-        )}
+        renderItem={({ item }) => <CollaboratorWageCard item={item} />}
       />
-      <View className="border-t-2 border-zinc-100 px-2 w-full justify-center items-center">
-        <Pagination totalPages={pages} currentPage={currentPage} onPageChange={setCurrentPage} />
-      </View>
-      <NewCollaboratorFinanceModal />
-    </View>
+
+      <NewCollaboratorFinanceModal
+        open={modal}
+        setOpen={setModal}
+        handleUpdate={fetchCollaborators}
+      />
+    </TableContainer>
   );
 }

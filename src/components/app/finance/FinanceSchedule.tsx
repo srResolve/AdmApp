@@ -6,7 +6,7 @@ import { TableContainer } from '../../global/TableContainer';
 import { FinanceScheduleCard } from './cards/FinanceScheduleCard';
 
 export function FinanceSchedule() {
-  const [pages, setPages] = useState(10);
+  const [pages, setPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [scheduleItems, setScheduleItems] = useState();
   const [newScheduleModal, setNewScheduleModal] = useState(false);

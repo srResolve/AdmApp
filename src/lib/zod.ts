@@ -117,6 +117,12 @@ export const ZodCreateBankAccountValidation = z.object({
   initialBalance: z.coerce.number(),
 });
 
+export const ZodCreateCollaboratorWageValidation = z.object({
+  user_id: z.string(),
+  value: z.coerce.number(),
+  date: z.coerce.date(),
+});
+
 export const zodErrorHandler = (error: ZodError) => {
   const field = errorList.find((field) => field.name === error.issues[0].path[0]);
   return field?.message || 'Verifique os dados inseridos';
