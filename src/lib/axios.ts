@@ -6,7 +6,7 @@ export const refreshToken = 'sr-resolve-adm.refreshToken';
 export const token = 'sr-resolve-worker.token';
 export const productionApi = 'https://api.senhorresolve.com';
 
-export const baseURL = amazonik;
+export const baseURL = productionApi;
 
 export const api = axios.create({
   baseURL,
