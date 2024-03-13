@@ -9,23 +9,21 @@ export function ScheduleTableCard({ item }: any) {
       <View className=" w-4/6">
         <View className="flex-row items-center">
           <AntDesign name="user" size={16} color="white" />
-          <Text className="ml-1 text-sm text-zinc-700">Cliente:</Text>
           <Text className="ml-1 text-lg font-semibold text-zinc-100">{item.client.name}</Text>
         </View>
         <View className="flex-row items-center w-full">
-          <MaterialCommunityIcons name="account-cog-outline" size={16} color="white" />
-          <Text className="ml-1 text-sm text-zinc-700">Colaborador:</Text>
+          <MaterialCommunityIcons name="account-cog-outline" size={14} color="white" />
           <Text
             numberOfLines={1}
-            className=" ml-1 font-semibold text-lg text-zinc-100 flex-1 truncate"
+            className=" ml-1 font-semibold text-base text-zinc-100 flex-1 truncate"
           >
             {(item.user && item.user.name) || '-'}
           </Text>
         </View>
         <View className="flex-row items-center">
           <AntDesign name="clockcircleo" size={16} color="white" />
-          <Text className="ml-1 text-sm font-semibold text-zinc-100">
-            {moment(item.date).format('DD/MM/YYYY')} - {item.time}
+          <Text className="ml-1 text-sm font-semibold text-zinc-300">
+            {moment(item.date).format('DD/MM/YYYY')}
           </Text>
         </View>
       </View>

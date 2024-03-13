@@ -11,7 +11,7 @@ import { BackButton } from '../../global/BackButton';
 import { BaseButton } from '../../global/BaseButton';
 import { DatePickerModal } from '../../global/DatePickerModal';
 import { DoubleIconButton } from '../../global/DoubleIconButton';
-import { CreateTaskAndProductModal } from './CreateTaskAndProductModal';
+import { CreateTaskAndProductModal } from '../../global/TaskAndProductModal/CreateTaskAndProductModal';
 import { ObservationModal } from './ObservationModal';
 
 interface Props {

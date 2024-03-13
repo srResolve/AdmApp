@@ -96,7 +96,8 @@ export function AppRoutes() {
             </>
           ),
         }}
-      />
+      /> */}
+      {/* 
       <Screen
         name="Finance"
         // listeners={{

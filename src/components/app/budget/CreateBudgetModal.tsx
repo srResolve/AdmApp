@@ -25,7 +25,7 @@ import { ClientModal } from '../../global/ClientModal/ClientModal';
 import { DatePickerModal } from '../../global/DatePickerModal';
 import { DoubleIconButton } from '../../global/DoubleIconButton';
 import PhotoPick from '../../global/SelectPhoto';
-import { CreateTaskAndProductModal } from './CreateTaskAndProductModal';
+import { CreateTaskAndProductModal } from '../../global/TaskAndProductModal/CreateTaskAndProductModal';
 import { ObservationModal } from './ObservationModal';
 interface Props {
   setOpen: (open: boolean) => void;

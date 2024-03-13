@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { configRefresh, configToken, storageToken } from '../utils/tokenManagement';
 
-export const amazonik = 'http://172.20.10.2:3333';
+export const amazonik = 'http://192.168.10.226:3333';
 export const refreshToken = 'sr-resolve-adm.refreshToken';
 export const token = 'sr-resolve-worker.token';
 export const productionApi = 'https://api.senhorresolve.com';

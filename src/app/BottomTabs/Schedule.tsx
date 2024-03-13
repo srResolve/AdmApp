@@ -1,6 +1,7 @@
 import { FontAwesome } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import { Alert, FlatList, View } from 'react-native';
+import { NewServiceModal } from '../../components/app/schedule/NewServiceModal';
 import { ScheduleTableCard } from '../../components/app/schedule/ScheduleTableCard';
 import { GlobalTitle } from '../../components/global/GlobalTitle';
 import { TableContainer } from '../../components/global/TableContainer';
@@ -44,7 +45,7 @@ export default function Schedule() {
       <TableContainer
         title="Serviços"
         loading={loading}
-        addButtonPress={() => {}}
+        addButtonPress={() => setCreateServiceModal(true)}
         addButtonTitle="Novo Serviço"
         statusOptions={BudgetStatusOptions}
         pages={pages}
@@ -58,6 +59,12 @@ export default function Schedule() {
           className="px-2"
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <ScheduleTableCard item={item} />}
+        />
+
+        <NewServiceModal
+          open={createServiceModal}
+          setOpen={setCreateServiceModal}
+          handleUpdate={handleGetServices}
         />
       </TableContainer>
     </View>

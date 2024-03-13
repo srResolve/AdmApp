@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { Text, View } from 'react-native';
-import { IconButton } from '../../global/IconButton';
+import { IconButton } from '../IconButton';
 
 interface Props {
   item: {

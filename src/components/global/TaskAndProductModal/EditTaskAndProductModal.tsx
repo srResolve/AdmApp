@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { Modal, Text, View } from 'react-native';
 import { ZodError } from 'zod';
 import { ZodCreateTaskAndProduct } from '../../../lib/zod';
-import { BackButton } from '../../global/BackButton';
-import { BaseButton } from '../../global/BaseButton';
-import { InputForm } from '../../global/input/FormInput';
+import { BackButton } from '../BackButton';
+import { BaseButton } from '../BaseButton';
+import { InputForm } from '../input/FormInput';
 
 interface Props {
   title: string;

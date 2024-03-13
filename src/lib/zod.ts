@@ -3,7 +3,7 @@ import { ZodError, z } from 'zod';
 export const ZodCreateTaskAndProduct = z.object({
   name: z.string().min(3, 'O nome deve ter pelo menos 3 caracteres'),
   quantity: z.coerce.number().min(1),
-  value: z.coerce.number().min(1),
+  value: z.coerce.number(),
 });
 
 export const ZodObservation = z.object({
