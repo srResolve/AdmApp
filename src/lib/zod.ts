@@ -123,6 +123,32 @@ export const ZodCreateCollaboratorWageValidation = z.object({
   date: z.coerce.date(),
 });
 
+export const ZodCreateServiceValidation = z.object({
+  date: z.coerce.date(),
+  start_time: z.string(),
+  end_time: z.string(),
+  client_id: z.string(),
+  user_id: z.string().optional(),
+  description: z.string().optional(),
+  category_id: z.string(),
+  serviceTask: z.array(
+    z.object({
+      name: z.string(),
+      description: z.string().optional(),
+      quantity: z.number(),
+    })
+  ),
+});
+
+export const ZodCreateEntrancePaymentValidation = z.object({
+  date: z.coerce.date(),
+  description: z.string(),
+  value: z.coerce.number(),
+  type: z.enum(['INCOME', 'OUTCOME']),
+  category_id: z.string(),
+  account_id: z.string(),
+});
+
 export const zodErrorHandler = (error: ZodError) => {
   const field = errorList.find((field) => field.name === error.issues[0].path[0]);
   return field?.message || 'Verifique os dados inseridos';

@@ -1,9 +1,10 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 
 import { useEffect, useState } from 'react';
-import { Alert, FlatList, Text, View } from 'react-native';
+import { Alert, FlatList } from 'react-native';
 import { authGetAPI } from '../../../lib/axios';
 import { TableContainer } from '../../global/TableContainer';
+import { TransactionsCard } from './cards/TransactionsCard';
 import { NewEntranceModal } from './modal/NewEntranceModal';
 export function FinancialRegister() {
   const [pages, setPages] = useState(0);
@@ -35,23 +36,45 @@ export function FinancialRegister() {
 
   useEffect(() => {
     fetchTransactions();
-  }, []);
+  }, [filterOptions]);
 
   return (
     <TableContainer
       loading={loading}
+      selectorOptions={[
+        {
+          label: 'Todos',
+          value: 'all',
+        },
+        {
+          label: 'Entrada ou Saída',
+          value: 'status',
+        },
+        // {
+        //   label: 'Data',
+        //   value: 'date',
+        // },
+        {
+          label: 'Valor',
+          value: 'value',
+        },
+        {
+          label: 'Nome',
+          value: 'name',
+        },
+      ]}
       title="Entradas e Saídas"
       pages={pages}
       setCurrentPage={(page) => setFilterOptions({ ...filterOptions, page })}
       icon={<FontAwesome5 name="funnel-dollar" size={18} color="white" />}
       statusOptions={[
         {
-          label: 'Pendente',
-          value: 'PENDING',
+          label: 'Entradas',
+          value: 'INCOME',
         },
         {
-          label: 'Pago',
-          value: 'PAYED',
+          label: 'Saídas',
+          value: 'OUTCOME',
         },
       ]}
       filterOptions={filterOptions}
@@ -64,18 +87,7 @@ export function FinancialRegister() {
         data={tableItems}
         className="px-2"
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View className="flex-row justify-between p-1 px-2 items-center bg-primary_400 mt-2 rounded-lg border border-zinc-100">
-            <View>
-              <Text className="text-zinc-100 font-semibold text-lg">{item.name}</Text>
-              <Text className="text-zinc-800 font-semibold">{item.category}</Text>
-            </View>
-            <Text>{item.type}</Text>
-            <View>
-              <Text>{item.value}</Text>
-            </View>
-          </View>
-        )}
+        renderItem={({ item }) => <TransactionsCard item={item} />}
       />
       <NewEntranceModal open={modal} setOpen={setModal} handleUpdate={fetchTransactions} />
     </TableContainer>

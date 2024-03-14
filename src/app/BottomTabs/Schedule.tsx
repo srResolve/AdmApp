@@ -41,7 +41,7 @@ export default function Schedule() {
   }, [filterOptions]);
   return (
     <View className="flex-1 items-center px-4 bg-primary_800">
-      <GlobalTitle text="Clique em um orçamento para ver os detalhes, busque um orçamento específico ou crie um novo clicando em 'Novo Orçamento'." />
+      <GlobalTitle text="Aqui você pode gerenciar todas as tarefas da agenda da sua equipe." />
       <TableContainer
         title="Serviços"
         loading={loading}

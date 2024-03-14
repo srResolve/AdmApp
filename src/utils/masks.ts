@@ -118,3 +118,12 @@ export const removeSpace = (text: string) => {
   const replace = text.replace(/\s/g, '');
   return replace;
 };
+
+export const timeMask = (value: string) => {
+  if (!value) {
+    return '';
+  }
+  value = value.replace(/\D/g, '');
+  value = value.replace(/(\d{2})(\d)/, '$1:$2');
+  return value;
+};

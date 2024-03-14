@@ -65,7 +65,9 @@ export function TodayFinanceSchedule() {
           data={scheduleItems}
           className="px-2"
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <FinanceScheduleCard item={item} />}
+          renderItem={({ item }) => (
+            <FinanceScheduleCard handleUpdate={fetchSchedule} item={item} />
+          )}
         />
       ) : (
         <View className="flex-1 items-center justify-center">

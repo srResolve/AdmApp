@@ -24,7 +24,6 @@ export function CollaboratorsPayment() {
     const connect = await authGetAPI(
       `/finance/wage?page=${filterOptions.page}&query=${filterOptions.query}&status=${filterOptions.status}&limit=${filterOptions.limit}&type=${filterOptions.type}`
     );
-    console.log(connect.body.wage);
     setLoading(false);
 
     if (connect.status !== 200) {
@@ -37,10 +36,15 @@ export function CollaboratorsPayment() {
 
   useEffect(() => {
     fetchCollaborators();
-  }, []);
+  }, [filterOptions]);
 
   return (
     <TableContainer
+      selectorOptions={[
+        { label: 'Nome', value: 'name' },
+        { label: 'Valor', value: 'value' },
+        { label: 'Status', value: 'status' },
+      ]}
       loading={loading}
       title="Contas Bancárias"
       pages={pages}
@@ -66,7 +70,9 @@ export function CollaboratorsPayment() {
         data={collaboratorList}
         className="px-2"
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <CollaboratorWageCard item={item} />}
+        renderItem={({ item }) => (
+          <CollaboratorWageCard handleUpdate={fetchCollaborators} item={item} />
+        )}
       />
 
       <NewCollaboratorFinanceModal

@@ -19,6 +19,10 @@ interface Props extends ViewProps {
   loading: boolean;
   icon: React.ReactNode;
   addButtonTitle: string;
+  selectorOptions?: {
+    label: string;
+    value: string;
+  }[];
   addButtonPress: () => void;
   statusOptions: {
     label: string;
@@ -55,6 +59,16 @@ export const TableContainer = ({
   addButtonTitle,
   addButtonPress,
   className,
+  selectorOptions = [
+    {
+      label: 'Todos',
+      value: 'all',
+    },
+    {
+      label: 'Status',
+      value: 'status',
+    },
+  ],
   filter = true,
   ...rest
 }: Props) => {
@@ -79,7 +93,7 @@ export const TableContainer = ({
           </View>
           {filter && (
             <View className="py-2 flex-row justify-between items-center">
-              {filterOptions.type === 'status' ? (
+              {filterOptions.type === 'status' || filterOptions.type === 'type' ? (
                 <Selector
                   options={statusOptions}
                   handleSelect={(item: string) =>
@@ -100,12 +114,7 @@ export const TableContainer = ({
                 />
               )}
               <Selector
-                options={[
-                  { label: 'Nome', value: 'name' },
-                  { label: 'Código', value: 'code' },
-                  { label: 'Valor', value: 'value' },
-                  { label: 'Status', value: 'status' },
-                ]}
+                options={selectorOptions}
                 handleSelect={(item: string) => setFilterOptions({ ...filterOptions, type: item })}
                 selectedValue={filterOptions.type}
               />

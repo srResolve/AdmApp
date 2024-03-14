@@ -1,11 +1,18 @@
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import moment from 'moment';
-import { Text, View } from 'react-native';
+import { useState } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { StatusCard } from '../../global/StatusCard';
+import { ServiceDetailsModal } from './ServiceDetailsModal';
 
 export function ScheduleTableCard({ item }: any) {
+  const [detailsModal, setDetailsModal] = useState(false);
+
   return (
-    <View className="flex-row justify-between p-1 px-2 items-center bg-primary_400 mt-2 rounded-lg border border-zinc-100">
+    <TouchableOpacity
+      onPress={() => setDetailsModal(true)}
+      className="flex-row justify-between p-1 px-2 items-center bg-primary_400 mt-2 rounded-lg border border-zinc-100"
+    >
       <View className=" w-4/6">
         <View className="flex-row items-center">
           <AntDesign name="user" size={16} color="white" />
@@ -27,9 +34,15 @@ export function ScheduleTableCard({ item }: any) {
           </Text>
         </View>
       </View>
+      <ServiceDetailsModal
+        open={detailsModal}
+        setOpen={setDetailsModal}
+        service={item}
+        handleUpdate={() => {}}
+      />
       <View>
         <StatusCard status={item.status} />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }

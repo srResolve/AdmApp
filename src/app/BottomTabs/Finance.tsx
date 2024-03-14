@@ -6,19 +6,14 @@ import { FinanceAccount } from '../../components/app/finance/FinanceAccounts';
 import { FinanceSchedule } from '../../components/app/finance/FinanceSchedule';
 import { FinancialRegister } from '../../components/app/finance/FinancialRegister';
 import { TodayFinanceSchedule } from '../../components/app/finance/TodayFinanceSchedule';
+import { GlobalTitle } from '../../components/global/GlobalTitle';
 
 export default function Finance() {
   const [currentTable, setCurrentTable] = useState('daySchedule');
 
   return (
     <View className="flex-1 items-center bg-primary_800">
-      <View className="w-full justify-end items-center">
-        <Text className="text-zinc-100 font-bold text-2xl mt-12">Bem Vindo!</Text>
-        <Text className="text-center text-zinc-300 font-semibold text-sm px-4">
-          Clique em um orçamento para ver os detalhes, busque um orçamento específico ou crie um
-          novo clicando em "Novo Orçamento".
-        </Text>
-      </View>
+      <GlobalTitle text=" Aqui você pode conferir toda a parte financeira, basta escolher no card abaixo qual informação deseja ver." />
       <View className="w-full mt-5 px-2">
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row w-full">
           <TouchableOpacity

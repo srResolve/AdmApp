@@ -2,7 +2,13 @@ export interface Task {
   id?: string;
   name: string;
   quantity: number;
+  evaluation?: string;
+  status: 'PENDING' | 'APPROVED' | 'REFUSED' | 'COMPLETE';
   value: number;
+  photo?: {
+    photo_key: string;
+    photo_location: string;
+  }[];
   action?: 'CREATE' | 'UPDATE' | 'DELETE';
 }
 
