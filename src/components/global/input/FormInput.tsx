@@ -41,7 +41,7 @@ export function InputForm({ control, name, value, containerStyle, error, ...rest
             error={[]}
             value={maskCpfCnpj(value)}
           />
-        ) : name === 'mobilePhone' ? (
+        ) : name === 'mobilePhone' || name === 'mobile_phone' ? (
           <BaseInput
             maxLength={14}
             {...rest}

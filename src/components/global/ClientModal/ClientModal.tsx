@@ -27,11 +27,9 @@ export function ClientModal({ open, setOpen, selectedClient, setSelectedClient }
   async function getClients() {
     setLoading(true);
     const connect = await authGetAPI(`/client?query=${searchText}&page=${currentPage}`);
-
     setLoading(false);
     if (connect.status !== 200) {
-      Alert.alert('Erro', 'Ocorreu um erro ao buscar os clientes');
-      return setOpen(false);
+      return Alert.alert('Erro', 'Ocorreu um erro ao buscar os clientes');
     }
     setPages(connect.body.pages);
     setClientList(connect.body.clients);

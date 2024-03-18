@@ -95,6 +95,8 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
           },
         },
       ]);
+
+      return setOpen(false);
     } catch (error) {
       setLoading(false);
       if (error instanceof ZodError) {
@@ -192,7 +194,7 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
                   title="Prazo de execução"
                   onPress={() => setExecutionDateModal(true)}
                   rightIcon={
-                    expireDate === null ? (
+                    executionDate === null ? (
                       <AntDesign name="pluscircleo" size={24} color="white" />
                     ) : (
                       <AntDesign name="checkcircleo" size={24} color="green" />
@@ -204,7 +206,7 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
                   title="Observações"
                   onPress={() => setObservationModal(true)}
                   rightIcon={
-                    expireDate === null ? (
+                    observation === null || observation === '' ? (
                       <AntDesign name="pluscircleo" size={24} color="white" />
                     ) : (
                       <AntDesign name="checkcircleo" size={24} color="green" />

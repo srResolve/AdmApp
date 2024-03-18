@@ -44,6 +44,28 @@ export default function Budgets() {
     <View className="flex-1 items-center px-4 bg-primary_800">
       <GlobalTitle text="Clique em um orçamento para ver os detalhes, busque um orçamento específico ou crie um novo clicando em 'Novo Orçamento'." />
       <TableContainer
+        selectorOptions={[
+          {
+            label: 'Todos',
+            value: 'all',
+          },
+          {
+            label: 'Status',
+            value: 'status',
+          },
+          {
+            label: 'Código',
+            value: 'code',
+          },
+          {
+            label: 'Nome',
+            value: 'name',
+          },
+          {
+            label: 'Valor',
+            value: 'value',
+          },
+        ]}
         addButtonPress={() => setCreateBudgetModal(true)}
         addButtonTitle="Novo Orçamento"
         statusOptions={BudgetStatusOptions}

@@ -20,9 +20,9 @@ export function TodayFinanceSchedule() {
   });
   async function fetchSchedule() {
     setLoading(true);
-    const connect = await authGetAPI(
-      `/finance/schedule/today?page=${filterOptions.page}&query=${filterOptions.query}&status=${filterOptions.status}&limit=${filterOptions.limit}&type=${filterOptions.type}`
-    );
+    const connect = await authGetAPI('/finance/schedule/today');
+
+    console.log(connect);
 
     setLoading(false);
     if (connect.status !== 200) {

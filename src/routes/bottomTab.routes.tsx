@@ -1,12 +1,10 @@
-import { FontAwesome, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BlurView } from 'expo-blur';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import Budgets from '../app/BottomTabs/Budgets';
-import Finance from '../app/BottomTabs/Finance';
 import Profile from '../app/BottomTabs/Profile';
-import Schedule from '../app/BottomTabs/Schedule';
 const { Navigator, Screen } = createBottomTabNavigator();
 export function AppRoutes() {
   return (
@@ -73,7 +71,7 @@ export function AppRoutes() {
           ),
         }}
       />
-      <Screen
+      {/* <Screen
         name="Schedule"
         // listeners={{
         //   tabPress: (e) => {
@@ -123,7 +121,7 @@ export function AppRoutes() {
             </>
           ),
         }}
-      />
+      /> */}
       <Screen
         name="Profile"
         component={Profile}

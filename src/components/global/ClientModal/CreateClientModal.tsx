@@ -50,8 +50,8 @@ export function CreateClientModal({ open, setOpen }: Props) {
       setLoading(true);
       const connect = await AuthPostAPI('/client', dataValidation);
       setLoading(false);
-
-      if (connect.status !== 201) {
+      console.log(connect);
+      if (connect.status !== 201 && connect.status !== 200) {
         return setErrorMessage(connect.body);
       }
 
@@ -67,75 +67,80 @@ export function CreateClientModal({ open, setOpen }: Props) {
 
   return (
     <Modal visible={open} transparent animationType="fade">
-      <View className="absolute left-0 right-0 z-10 h-content pb-2 mx-6 rounded-xl items-center  bg-primary_600 top-32">
-        <View className="flex-row items-center justify-between w-full pr-2">
-          <View className="flex-row">
-            <BackButton onPress={() => setOpen(false)} />
-            <Text className="text-zinc-100 self-center text-2xl font-bold">Criar cliente</Text>
-          </View>
-          <ButtonWithIcon
-            title="Contatos"
-            className="bg-primary_800"
-            onPress={getContacts}
-            icon={<AntDesign name="contacts" size={24} color="white" />}
-          />
-        </View>
-        <View className="px-4 w-full items-center">
-          <InputForm
-            control={control}
-            error={formError}
-            name="name"
-            placeholder="Nome do cliente"
-            containerStyle="w-full"
-          />
-          <InputForm
-            control={control}
-            error={formError}
-            name="cpfCnpj"
-            placeholder="CPF ou CNPJ"
-            containerStyle="w-full"
-          />
-          <InputForm
-            control={control}
-            error={formError}
-            name="mobile_phone"
-            placeholder="Telefone do Cliente"
-            containerStyle="w-full"
-          />
-          <InputForm
-            control={control}
-            error={formError}
-            name="address"
-            placeholder="Endereço do cliente"
-            containerStyle="w-full"
-          />
-          <InputForm
-            control={control}
-            error={formError}
-            name="location"
-            placeholder="Localização do cliente"
-            containerStyle="w-full"
-          />
+      {open && (
+        <>
+          <View className="absolute left-0 right-0 z-10 h-content pb-2 mx-6 rounded-xl items-center  bg-primary_600 top-32">
+            <View className="flex-row items-center justify-between w-full pr-2">
+              <View className="flex-row">
+                <BackButton onPress={() => setOpen(false)} />
+                <Text className="text-zinc-100 self-center text-2xl font-bold">Criar cliente</Text>
+              </View>
+              <ButtonWithIcon
+                title="Contatos"
+                className="bg-primary_800"
+                onPress={getContacts}
+                icon={<AntDesign name="contacts" size={24} color="white" />}
+              />
+            </View>
+            <View className="px-4 w-full items-center">
+              <InputForm
+                control={control}
+                error={formError}
+                name="name"
+                placeholder="Nome do cliente"
+                containerStyle="w-full"
+              />
+              <InputForm
+                control={control}
+                error={formError}
+                name="cpfCnpj"
+                placeholder="CPF ou CNPJ"
+                containerStyle="w-full"
+              />
+              <InputForm
+                control={control}
+                error={formError}
+                name="mobile_phone"
+                placeholder="Telefone do Cliente"
+                keyboardType="phone-pad"
+                containerStyle="w-full"
+              />
+              <InputForm
+                control={control}
+                error={formError}
+                name="address"
+                placeholder="Endereço do cliente"
+                containerStyle="w-full"
+              />
+              <InputForm
+                control={control}
+                error={formError}
+                name="location"
+                placeholder="Localização do cliente"
+                containerStyle="w-full"
+              />
 
-          <Text className="text-red-500">{errorMessage}</Text>
-          <BaseButton
-            title="Criar cliente"
-            variant="confirmation"
-            loading={loading}
-            onPress={handleSubmit(handleCreateClient)}
+              <Text className="text-red-500">{errorMessage}</Text>
+              <BaseButton
+                title="Criar cliente"
+                variant="confirmation"
+                loading={loading}
+                onPress={handleSubmit(handleCreateClient)}
+              />
+            </View>
+          </View>
+          <ContactListModal
+            handleSelect={({ name, phoneNumber }) => {
+              reset({ name, mobile_phone: phoneNumber });
+              setContactListModal(false);
+            }}
+            open={contactListModal}
+            setOpen={setContactListModal}
+            contacts={contacts}
           />
-        </View>
-      </View>
-      <ContactListModal
-        handleSelect={({ name, phoneNumber }) => {
-          reset({ name, mobile_phone: phoneNumber });
-          setContactListModal(false);
-        }}
-        open={contactListModal}
-        setOpen={setContactListModal}
-        contacts={contacts}
-      />
-      <View className="flex 1 bg-zinc-900 h-full opacity-90" />
+          <View className="flex 1 bg-zinc-900 h-full opacity-90" />
+        </>
+      )}
     </Modal>
   );
 }
