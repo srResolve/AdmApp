@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import { Alert, FlatList, View } from 'react-native';
+import { Alert, FlatList, Keyboard, TouchableWithoutFeedback, View } from 'react-native';
 import { Budget } from '../../@types/types';
 import { BudgetTableCard } from '../../components/app/budget/BudgetTableCard';
 import { CreateBudgetModal } from '../../components/app/budget/CreateBudgetModal';
@@ -14,7 +14,7 @@ export default function Budgets() {
     page: 1,
     query: '',
     status: '',
-    type: '',
+    type: 'name',
     limit: 10,
   });
   const [loading, setLoading] = useState(false);
@@ -41,52 +41,54 @@ export default function Budgets() {
   }
 
   return (
-    <View className="flex-1 items-center px-4 bg-primary_800">
-      <GlobalTitle text="Clique em um orçamento para ver os detalhes, busque um orçamento específico ou crie um novo clicando em 'Novo Orçamento'." />
-      <TableContainer
-        selectorOptions={[
-          {
-            label: 'Todos',
-            value: 'all',
-          },
-          {
-            label: 'Status',
-            value: 'status',
-          },
-          {
-            label: 'Código',
-            value: 'code',
-          },
-          {
-            label: 'Nome',
-            value: 'name',
-          },
-          {
-            label: 'Valor',
-            value: 'value',
-          },
-        ]}
-        addButtonPress={() => setCreateBudgetModal(true)}
-        addButtonTitle="Novo Orçamento"
-        statusOptions={BudgetStatusOptions}
-        title="Orçamentos"
-        pages={pages}
-        loading={loading}
-        filterOptions={filterOptions}
-        setFilterOptions={setFilterOptions}
-        icon={<FontAwesome5 name="clipboard-list" size={24} color="white" />}
-        setCurrentPage={(page) => setFilterOptions({ ...filterOptions, page })}
-      >
-        <FlatList
-          data={budgets}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ flexGrow: 1, zIndex: 10 }}
-          className="px-2"
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <BudgetTableCard item={item} handleUpdate={getBudgets} />}
-        />
-      </TableContainer>
-      <CreateBudgetModal open={createBudgetModal} setOpen={setCreateBudgetModal} />
-    </View>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View className="flex-1 items-center px-4 bg-primary_800">
+        <GlobalTitle text="Clique em um orçamento para ver os detalhes, busque um orçamento específico ou crie um novo clicando em 'Novo Orçamento'." />
+        <TableContainer
+          selectorOptions={[
+            // {
+            //   label: 'Todos',
+            //   value: 'all',
+            // },
+            // {
+            //   label: 'Status',
+            //   value: 'status',
+            // },
+            // {
+            //   label: 'Código',
+            //   value: 'code',
+            // },
+            {
+              label: 'Nome',
+              value: 'name',
+            },
+            // {
+            //   label: 'Valor',
+            //   value: 'value',
+            // },
+          ]}
+          addButtonPress={() => setCreateBudgetModal(true)}
+          addButtonTitle="Novo Orçamento"
+          statusOptions={BudgetStatusOptions}
+          title="Orçamentos"
+          pages={pages}
+          loading={loading}
+          filterOptions={filterOptions}
+          setFilterOptions={setFilterOptions}
+          icon={<FontAwesome5 name="clipboard-list" size={24} color="white" />}
+          setCurrentPage={(page) => setFilterOptions({ ...filterOptions, page })}
+        >
+          <FlatList
+            data={budgets}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ flexGrow: 1, zIndex: 10 }}
+            className="px-2"
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <BudgetTableCard item={item} handleUpdate={getBudgets} />}
+          />
+        </TableContainer>
+        <CreateBudgetModal open={createBudgetModal} setOpen={setCreateBudgetModal} />
+      </View>
+    </TouchableWithoutFeedback>
   );
 }

@@ -11,7 +11,7 @@ export const pdfServicesAndProducts = (data?: Props[]) => {
 
   for (const item of data) {
     finalText += `
-    <tr style="height: 29pt">
+    <tr">
     <td
       style="
         width: 241pt;

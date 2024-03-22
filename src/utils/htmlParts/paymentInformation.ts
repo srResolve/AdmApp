@@ -27,7 +27,7 @@ export const paymentInformation = ({ products, tasks }: Props) => {
     style="border-collapse: collapse; width: 100%;"
     cellspacing="0"
   >
-    <tr style="height: 60pt">
+    <tr>
       <td style="width: 43pt" bgcolor="#F6F6F6">
         <p
           class="s4"

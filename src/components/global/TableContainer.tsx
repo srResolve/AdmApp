@@ -105,7 +105,7 @@ export const TableContainer = ({
                 <IconBaseInput
                   error={[]}
                   name="search"
-                  keyboardType={filterOptions.type === 'name' ? 'default' : 'numeric'}
+                  keyboardType={filterOptions.type === 'code' ? 'numeric' : 'default'}
                   value={filterOptions.query}
                   onChangeText={(value) => setFilterOptions({ ...filterOptions, query: value })}
                   placeholder="Pesquisar..."

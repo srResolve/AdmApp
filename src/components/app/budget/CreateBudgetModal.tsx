@@ -49,17 +49,17 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
   const [observation, setObservation] = useState('');
   const [services, setServices] = useState<Task[]>([]);
   const [products, setProducts] = useState<Task[]>([]);
-  const [expireDate, setExpireDate] = useState<Date | null>(null);
   const [executionDate, setExecutionDate] = useState<Date | null>(null);
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [images, setImages] = useState<{ key: string; location: string }[]>([]);
+  const [expireDate, setExpireDate] = useState<Date | null>(moment().add(15, 'days').toDate());
 
   async function createBudget() {
     try {
       const createData = {
         client_id: selectedClient?.id,
         due_date: expireDate,
-        execution_period: moment(executionDate).diff(moment(), 'days'),
+        execution_period: (executionDate && moment(executionDate).diff(moment(), 'days')) || 15,
         observation: observation,
         photo: images,
         tasks: services,
@@ -100,6 +100,7 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
     } catch (error) {
       setLoading(false);
       if (error instanceof ZodError) {
+        console.log(error);
         setErrorMessage(zodErrorHandler(error));
       }
     }
