@@ -20,7 +20,7 @@ export interface Budget {
   };
   status: 'PENDING' | 'APPROVED' | 'REFUSED' | 'COMPLETE';
   tasks: Task[];
-  products: Task[];
+  product: Task[];
   totalValue: number;
   observation: string | undefined;
   due_date: Date;
@@ -43,7 +43,7 @@ export interface BudgetPdfCreate {
     quantity: number;
     value: number;
   }[];
-  products?: {
+  product?: {
     name: string;
     quantity: number;
     value: number;

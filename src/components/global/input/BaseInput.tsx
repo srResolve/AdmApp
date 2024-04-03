@@ -30,6 +30,7 @@ export function BaseInput({ containerStyle, error, editable = true, ...rest }: I
       className={`flex-row border ${hasError ? 'border-red-700' : editable ? 'border-zinc-100' : 'border-zinc-700'} items-center mt-4 w-3/4 bg-primary_400 h-14 rounded-lg overflow-hidden ${containerStyle} `}
     >
       <TextInput
+        allowFontScaling={false}
         {...rest}
         onBlur={() => onBlurVerify()}
         placeholderTextColor="#3f3f46"

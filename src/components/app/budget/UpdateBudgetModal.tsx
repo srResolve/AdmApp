@@ -35,7 +35,7 @@ export function UpdateBudgetModal({ open, setOpen, budget, handleUpdate }: Props
     ...budget,
     tasks: budget.tasks,
     observation: budget.observation ? budget.observation : undefined,
-    products: budget.products ? budget.products : [],
+    product: budget.product ? budget.product : [],
   });
 
   async function handleUpdateBudget() {
@@ -45,7 +45,7 @@ export function UpdateBudgetModal({ open, setOpen, budget, handleUpdate }: Props
         ...newBudget,
         observation: newBudget.observation ? newBudget.observation : undefined,
         tasks: newBudget.tasks.filter((item) => item.action),
-        products: newBudget.products.filter((item) => item.action),
+        products: newBudget.product.filter((item) => item.action),
       };
 
       const validation = ZodUpdateBudgetValidation.parse(updateData);
@@ -77,7 +77,7 @@ export function UpdateBudgetModal({ open, setOpen, budget, handleUpdate }: Props
         >
           <View className="flex-row items-center w-full">
             <BackButton onPress={() => setOpen(false)} />
-            <Text className="text-zinc-100 self-center text-2xl font-bold">Criar Orçamento</Text>
+            <Text className="text-zinc-100 self-center text-2xl font-bold">Editar Orçamento</Text>
           </View>
           <View className="items-center mb-5 px-4">
             <AnimatedButton open={orderOpen} title="Pedido" setOpen={setOrderOpen} />
@@ -105,12 +105,12 @@ export function UpdateBudgetModal({ open, setOpen, budget, handleUpdate }: Props
                   onPress={() => setCreateProductModal(true)}
                   leftIcon={<Feather name="shopping-cart" size={24} color="white" />}
                   rightIcon={
-                    newBudget.products.length === 0 ? (
+                    newBudget.product.length === 0 ? (
                       <AntDesign name="pluscircleo" size={24} color="white" />
                     ) : (
                       <View className="flex-row items-center ">
                         <Text className="text-sm text-zinc-300 font-bold">
-                          {totalPriceCalc(newBudget.products)}
+                          {totalPriceCalc(newBudget.product)}
                         </Text>
                         <MaterialIcons name="chevron-right" size={30} color="green" />
                       </View>
@@ -206,29 +206,29 @@ export function UpdateBudgetModal({ open, setOpen, budget, handleUpdate }: Props
             setOpen={setCreateProductModal}
             title="Produto"
             pluralTitle="Produtos"
-            data={newBudget.tasks}
+            data={newBudget.product}
             handleEdit={(data, index) =>
               setNewBudget({
                 ...newBudget,
-                products: [
-                  ...newBudget.products.filter((_, i) => i !== index),
-                  { ...data, action: 'UPDATE', id: newBudget.products[index].id },
+                product: [
+                  ...newBudget.product.filter((_, i) => i !== index),
+                  { ...data, action: 'UPDATE', id: newBudget.product[index].id },
                 ],
               })
             }
             handleDelete={(index) => {
               setNewBudget({
                 ...newBudget,
-                products: [
-                  ...newBudget.products.filter((_, i) => i !== index),
-                  { ...newBudget.products[index], action: 'DELETE' },
+                product: [
+                  ...newBudget.product.filter((_, i) => i !== index),
+                  { ...newBudget.product[index], action: 'DELETE' },
                 ],
               });
             }}
             handleChange={(data) => {
               setNewBudget({
                 ...newBudget,
-                products: [...newBudget.products, { ...data, action: 'CREATE' }],
+                product: [...newBudget.product, { ...data, action: 'CREATE' }],
               });
             }}
           />

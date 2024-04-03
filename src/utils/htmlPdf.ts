@@ -34,8 +34,8 @@ export const createPdf = (props: BudgetPdfCreate) => {
   ${tableHeader('Serviços')}
   ${pdfServicesAndProducts(props.tasks)}
   
-    ${props.products && props.products.length > 0 ? tableHeader('Materiais') : ''}
-    ${pdfServicesAndProducts(props.products)}
+    ${props.product && props.product.length > 0 ? tableHeader('Materiais') : ''}
+    ${pdfServicesAndProducts(props.product)}
   </table>
 
   </div>
