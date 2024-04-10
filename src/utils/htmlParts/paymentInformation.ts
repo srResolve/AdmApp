@@ -1,5 +1,5 @@
 interface Props {
-  products?: {
+  product?: {
     name: string;
     quantity: number;
     value: number;
@@ -11,16 +11,20 @@ interface Props {
   }[];
 }
 
-export const paymentInformation = ({ products, tasks }: Props) => {
+export const paymentInformation = ({ product, tasks }: Props) => {
   const tasksValue = tasks.reduce((accumulator, service) => {
-    return accumulator + service.value;
+    return accumulator + service.value * service.quantity;
   }, 0);
 
-  const productValue = products
-    ? products.reduce((accumulator, product) => {
-        return accumulator + product.value;
+  console.log(console.log(product));
+
+  const productValue = product
+    ? product.reduce((accumulator, product) => {
+        return accumulator + (product.value || 0) * product.quantity;
       }, 0)
     : 0;
+
+  console.log(productValue);
 
   return `
     <table

@@ -5,6 +5,7 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import Budgets from '../app/BottomTabs/Budgets';
 import Profile from '../app/BottomTabs/Profile';
+import Schedule from '../app/BottomTabs/Schedule';
 const { Navigator, Screen } = createBottomTabNavigator();
 export function AppRoutes() {
   return (
@@ -71,7 +72,7 @@ export function AppRoutes() {
           ),
         }}
       />
-      {/* <Screen
+      <Screen
         name="Schedule"
         // listeners={{
         //   tabPress: (e) => {
@@ -96,7 +97,7 @@ export function AppRoutes() {
           ),
         }}
       />
-
+      {/* 
       <Screen
         name="Finance"
         // listeners={{
