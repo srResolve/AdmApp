@@ -2,7 +2,7 @@
   "expo": {
     "name": "senhor Resolve Administrativo",
     "slug": "senhorResolveAdm",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -21,7 +21,7 @@
     },
     "android": {
       "package": "com.senhorresolve.adm",
-      "versionCode": 11
+      "versionCode": 12
     },
     "web": {
       "favicon": "./assets/favicon.png"
