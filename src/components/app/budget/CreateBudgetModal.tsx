@@ -54,6 +54,16 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
   const [images, setImages] = useState<{ key: string; location: string }[]>([]);
   const [expireDate, setExpireDate] = useState<Date | null>(moment().add(15, 'days').toDate());
 
+  function handleClean() {
+    setServices([]);
+    setProducts([]);
+    setObservation('');
+    setExecutionDate(null);
+    setSelectedClient(null);
+    setImages([]);
+    setExpireDate(moment().add(15, 'days').toDate());
+  }
+
   async function createBudget() {
     try {
       const createData = {
@@ -66,10 +76,10 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
         products: products,
       };
 
-      setLoading(true);
       const validation = ZodCreateBudgetValidation.parse(createData);
-      setLoading(false);
+      setLoading(true);
       const connect = await AuthPostAPI('/budget', validation);
+      setLoading(false);
       if (connect.status !== 200) {
         setErrorMessage(connect.body);
         return;
@@ -95,7 +105,7 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
           },
         },
       ]);
-
+      handleClean();
       return setOpen(false);
     } catch (error) {
       setLoading(false);
@@ -169,8 +179,15 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
                     )
                   }
                 />
+                <View className="flex-row gap-2 items-center mt-2">
+                  <Text className="text-zinc-100 font-semibold">Valor Total: </Text>
+                  <Text className="text-green-900 font-bold text-lg">
+                    {totalPriceCalc([...services, ...products])}
+                  </Text>
+                </View>
               </>
             )}
+
             <AnimatedButton
               open={extraInfoOpen}
               title="Informações extras"

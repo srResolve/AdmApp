@@ -16,17 +16,18 @@ export function TaskAndProductCard({ item, handleDelete, handleEdit }: Props) {
   return (
     <View className="flex-row justify-between px-3 mt-1 bg-primary_200 p-2 rounded-lg w-full">
       <View className="gap-1 w-3/5">
-        <Text numberOfLines={1} className="text-zinc-900 font-semibold text-xl truncate w-full">
+        <Text numberOfLines={1} className="text-zinc-900 font-semibold text-lg truncate w-full">
           {item.name}
         </Text>
-        <View className="flex-row items-center justify-between w-1/2">
+        <View className="flex-row items-center justify-start w-1/2">
           <IconButton
             onPress={handleDelete}
-            icon={<Feather name="trash-2" size={22} color="#ef4444" />}
+            icon={<Feather name="trash-2" size={18} color="#ef4444" />}
           />
           <IconButton
             onPress={handleEdit}
-            icon={<Feather name="edit" size={22} color="#eab308" />}
+            className="ml-2"
+            icon={<Feather name="edit" size={18} color="#eab308" />}
           />
         </View>
       </View>

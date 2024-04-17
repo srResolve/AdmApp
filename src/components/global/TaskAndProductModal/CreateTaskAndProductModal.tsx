@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FlatList, Keyboard, Modal, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { FlatList, Modal, Text, View } from 'react-native';
 import { ZodError } from 'zod';
 import { Task } from '../../../@types/types';
 import { ZodCreateTaskAndProduct } from '../../../lib/zod';
+import { totalPriceCalc } from '../../../utils/totalPriceCalculator';
 import { AnimatedButton } from '../AnimatedButton';
 import { BackButton } from '../BackButton';
 import { BaseButton } from '../BaseButton';
@@ -33,6 +34,7 @@ export function CreateTaskAndProductModal({
   handleDelete,
   hasPrice = true,
 }: Props) {
+  const listRef = useRef<any>();
   const [editModal, setEditModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [formErrors, setFormErrors] = useState<string[]>([]);
@@ -46,13 +48,16 @@ export function CreateTaskAndProductModal({
       const finalData = {
         ...data,
         value: hasPrice ? data.value : 1,
+        quantity: data.quantity ? data.quantity : 1,
       };
-      console.log(finalData);
       setErrorMessage('');
       setFormErrors([]);
       const dataValidation = ZodCreateTaskAndProduct.parse(finalData);
       handleChange(dataValidation);
       setServiceListOpen(true);
+
+      listRef.current.scrollToOffset({ animated: true, offset: 0 });
+
       return reset();
     } catch (error) {
       if (error instanceof ZodError) {
@@ -65,7 +70,7 @@ export function CreateTaskAndProductModal({
   return (
     <Modal visible={open} transparent animationType="fade">
       <>
-        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <>
           <View className="absolute top-0 left-0 right-0 z-10 max-h-[] h-5/6 pb-2  my-14 mx-6 rounded-xl items-center  bg-primary_600">
             <View className="flex-row items-center w-full">
               <BackButton onPress={() => setOpen(false)} />
@@ -121,10 +126,13 @@ export function CreateTaskAndProductModal({
                 title={`${pluralTitle} Criados(as)`}
                 setOpen={setServiceListOpen}
               />
+
               {serviceListOpen && data.length > 0 && (
                 <View className="flex-1">
                   <FlatList
+                    ref={listRef}
                     data={data}
+                    inverted
                     showsVerticalScrollIndicator={false}
                     keyExtractor={(item) => JSON.stringify(item)}
                     renderItem={({ item, index }) => (
@@ -149,9 +157,15 @@ export function CreateTaskAndProductModal({
                   />
                 </View>
               )}
+              <View className="flex-row gap-2 items-center mt-2">
+                <Text className="text-zinc-100 font-semibold">Valor Total: </Text>
+                <Text className="text-green-300 font-bold text-lg">
+                  {data.length > 0 && totalPriceCalc(data)}
+                </Text>
+              </View>
             </View>
           </View>
-        </TouchableWithoutFeedback>
+        </>
         <View className="flex 1 bg-zinc-900 h-full opacity-90" />
       </>
     </Modal>

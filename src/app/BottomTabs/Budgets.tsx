@@ -23,7 +23,7 @@ export default function Budgets() {
 
   useEffect(() => {
     getBudgets();
-  }, [filterOptions]);
+  }, [filterOptions, createBudgetModal]);
 
   async function getBudgets() {
     setLoading(true);
