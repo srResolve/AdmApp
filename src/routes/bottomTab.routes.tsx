@@ -53,6 +53,31 @@ export function AppRoutes() {
           ),
       }}
     >
+      {/* <Screen
+        name="Home"
+        // listeners={{
+        //   tabPress: (e) => {
+        //     // Prevent default action
+        //     e.preventDefault();
+        //   },
+        // }}
+        component={Home}
+        options={{
+          tabBarLabel: '',
+          tabBarIcon: ({ focused }) => (
+            <>
+              <FontAwesome
+                name="home"
+                size={focused ? 36 : 32}
+                color={focused ? 'white' : '#a1a1aa'}
+              />
+              <Text className={`${focused ? 'text-white' : 'text-zinc-400'} text-sm font-bold`}>
+                Inicio
+              </Text>
+            </>
+          ),
+        }}
+      /> */}
       <Screen
         name="Budgets"
         component={Budgets}
