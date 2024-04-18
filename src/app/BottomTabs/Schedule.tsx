@@ -1,11 +1,12 @@
 import { FontAwesome } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import { Alert, FlatList, View } from 'react-native';
+import { ActivityIndicator, Alert, ScrollView, View } from 'react-native';
 import { NewServiceModal } from '../../components/app/schedule/NewServiceModal';
 import { ScheduleTableCard } from '../../components/app/schedule/ScheduleTableCard';
-import { GlobalTitle } from '../../components/global/GlobalTitle';
+import { PageHeader } from '../../components/global/PageHeader';
 import { TableContainer } from '../../components/global/TableContainer';
 import { authGetAPI } from '../../lib/axios';
+import { isCloseToBottom } from '../../utils/scrollViewTrigger';
 import { BudgetStatusOptions } from '../../utils/statusOptions';
 
 export default function Schedule() {
@@ -32,34 +33,59 @@ export default function Schedule() {
       return Alert.alert('Erro', connect.body);
     }
 
-    setServices(connect.body.services);
+    if (filterOptions.query !== '') {
+      setServices(connect.body.services);
+      return setPages(connect.body.pages);
+    }
+    const map = new Map();
+
+    function addItemsToArray(arr: any[]) {
+      arr.forEach((item: { id: string }) => {
+        if (!map.has(item.id)) {
+          map.set(item.id, item);
+        }
+      });
+    }
+
+    addItemsToArray(services);
+    addItemsToArray(connect.body.services);
+
+    setLoading(false);
     setPages(connect.body.pages);
+    return setServices(Array.from(map.values()));
   }
 
   useEffect(() => {
     handleGetServices();
   }, [filterOptions]);
   return (
-    <View className="flex-1 items-center px-4 bg-primary_800">
-      <GlobalTitle text="Aqui você pode gerenciar todas as tarefas da agenda da sua equipe." />
+    <View className="flex-1 items-center bg-primary_800">
+      <PageHeader />
       <TableContainer
         title="Serviços"
-        loading={loading}
         addButtonPress={() => setCreateServiceModal(true)}
         addButtonTitle="Novo Serviço"
         statusOptions={BudgetStatusOptions}
-        pages={pages}
         filterOptions={filterOptions}
         setFilterOptions={setFilterOptions}
         icon={<FontAwesome name="cogs" size={24} color="white" />}
-        setCurrentPage={(page) => setFilterOptions({ ...filterOptions, page })}
       >
-        <FlatList
-          data={services}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
           className="px-2"
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <ScheduleTableCard item={item} />}
-        />
+          onScroll={({ nativeEvent }) => {
+            if (isCloseToBottom(nativeEvent) && pages > filterOptions.page) {
+              setFilterOptions({ ...filterOptions, page: filterOptions.page + 1 });
+            }
+          }}
+        >
+          {services.map((service) => (
+            <ScheduleTableCard key={service.id} item={service} />
+          ))}
+          <View className="py-2 mb-4">
+            {loading && <ActivityIndicator size="large" color="white" />}
+          </View>
+        </ScrollView>
 
         <NewServiceModal
           open={createServiceModal}

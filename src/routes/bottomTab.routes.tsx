@@ -1,9 +1,9 @@
-import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { BlurView } from 'expo-blur';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
+import { Text } from 'react-native';
 import Budgets from '../app/BottomTabs/Budgets';
+import Finance from '../app/BottomTabs/Finance';
+import { Home } from '../app/BottomTabs/Home';
 import Profile from '../app/BottomTabs/Profile';
 import Schedule from '../app/BottomTabs/Schedule';
 const { Navigator, Screen } = createBottomTabNavigator();
@@ -13,54 +13,18 @@ export function AppRoutes() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          paddingBottom: 0,
-          marginBottom: RFValue(25),
-          height: RFValue(60),
           paddingTop: 15,
+          paddingBottom: 15,
           marginHorizontal: 10,
-          borderRadius: 20,
-          position: 'absolute',
-          shadowColor: 'rgb(47, 64, 85)',
-          shadowOffset: { width: 0, height: -4 },
-          shadowOpacity: 0.12,
-          shadowRadius: 16,
+          width: '100%',
+          marginLeft: 0,
+          backgroundColor: '#303b71',
+          borderTopWidth: 0,
         },
-        tabBarBackground: () =>
-          Platform.OS === 'android' ? (
-            <View
-              style={{
-                ...StyleSheet.absoluteFillObject,
-                borderTopLeftRadius: 20,
-                borderTopRightRadius: 20,
-                borderRadius: 20,
-                overflow: 'hidden',
-                backgroundColor: 'rgba(92, 113, 214, 0.95)',
-              }}
-            />
-          ) : (
-            <BlurView
-              tint="dark"
-              intensity={30}
-              style={{
-                ...StyleSheet.absoluteFillObject,
-                borderTopLeftRadius: 20,
-                borderTopRightRadius: 20,
-                borderRadius: 20,
-                overflow: 'hidden',
-                backgroundColor: 'rgba(92, 113, 214, 0.8)',
-              }}
-            />
-          ),
       }}
     >
-      {/* <Screen
+      <Screen
         name="Home"
-        // listeners={{
-        //   tabPress: (e) => {
-        //     // Prevent default action
-        //     e.preventDefault();
-        //   },
-        // }}
         component={Home}
         options={{
           tabBarLabel: '',
@@ -77,7 +41,7 @@ export function AppRoutes() {
             </>
           ),
         }}
-      /> */}
+      />
       <Screen
         name="Budgets"
         component={Budgets}
@@ -99,12 +63,6 @@ export function AppRoutes() {
       />
       <Screen
         name="Schedule"
-        // listeners={{
-        //   tabPress: (e) => {
-        //     // Prevent default action
-        //     e.preventDefault();
-        //   },
-        // }}
         component={Schedule}
         options={{
           tabBarLabel: '',
@@ -122,15 +80,9 @@ export function AppRoutes() {
           ),
         }}
       />
-      {/* 
+
       <Screen
         name="Finance"
-        // listeners={{
-        //   tabPress: (e) => {
-        //     // Prevent default action
-        //     e.preventDefault();
-        //   },
-        // }}
         component={Finance}
         options={{
           tabBarLabel: '',
@@ -147,16 +99,10 @@ export function AppRoutes() {
             </>
           ),
         }}
-      /> */}
+      />
       <Screen
         name="Profile"
         component={Profile}
-        // listeners={{
-        //   tabPress: (e) => {
-        //     // Prevent default action
-        //     e.preventDefault();
-        //   },
-        // }}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ focused }) => (

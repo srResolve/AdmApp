@@ -1,7 +1,8 @@
 import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import { Alert, FlatList } from 'react-native';
+import { ActivityIndicator, Alert, ScrollView, View } from 'react-native';
 import { authGetAPI } from '../../../lib/axios';
+import { isCloseToBottom } from '../../../utils/scrollViewTrigger';
 import { TableContainer } from '../../global/TableContainer';
 import { FinanceScheduleCard } from './cards/FinanceScheduleCard';
 import { NewScheduleModal } from './modal/NewScheduleModal';
@@ -9,7 +10,7 @@ import { NewScheduleModal } from './modal/NewScheduleModal';
 export function FinanceSchedule() {
   const [pages, setPages] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [scheduleItems, setScheduleItems] = useState();
+  const [scheduleItems, setScheduleItems] = useState<any[]>([]);
   const [newScheduleModal, setNewScheduleModal] = useState(false);
   const [filterOptions, setFilterOptions] = useState({
     page: 1,
@@ -29,9 +30,27 @@ export function FinanceSchedule() {
     if (connect.status !== 200) {
       return Alert.alert('Erro', connect.body);
     }
+    if (filterOptions.query !== '') {
+      setPages(connect.body.pages);
+      return setScheduleItems(connect.body.transactions);
+    }
 
+    const map = new Map();
+
+    function addItemsToArray(arr: any[]) {
+      arr.forEach((item: { id: string }) => {
+        if (!map.has(item.id)) {
+          map.set(item.id, item);
+        }
+      });
+    }
+
+    addItemsToArray(scheduleItems);
+    addItemsToArray(connect.body.transactions);
+
+    setLoading(false);
     setPages(connect.body.pages);
-    setScheduleItems(connect.body.transactions);
+    return setScheduleItems(Array.from(map.values()));
   }
 
   useEffect(() => {
@@ -40,16 +59,13 @@ export function FinanceSchedule() {
 
   return (
     <TableContainer
-      loading={loading}
       title="Entradas e Saídas"
-      pages={pages}
       selectorOptions={[
         { label: 'Nome', value: 'name' },
         { label: 'Valor', value: 'value' },
         { label: 'Status', value: 'status' },
         { label: 'Entrada ou Saída', value: 'type' },
       ]}
-      setCurrentPage={(page) => setFilterOptions({ ...filterOptions, page })}
       icon={<AntDesign name="calendar" size={18} color="white" />}
       statusOptions={
         filterOptions.type === 'status'
@@ -80,12 +96,22 @@ export function FinanceSchedule() {
       addButtonPress={() => setNewScheduleModal(true)}
       className="h-[55%]"
     >
-      <FlatList
-        data={scheduleItems}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
         className="px-2"
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <FinanceScheduleCard handleUpdate={fetchSchedule} item={item} />}
-      />
+        onScroll={({ nativeEvent }) => {
+          if (isCloseToBottom(nativeEvent) && pages > filterOptions.page) {
+            setFilterOptions({ ...filterOptions, page: filterOptions.page + 1 });
+          }
+        }}
+      >
+        {scheduleItems.map((schedule) => (
+          <FinanceScheduleCard handleUpdate={fetchSchedule} item={schedule} />
+        ))}
+        <View className="py-2 mb-4">
+          {loading && <ActivityIndicator size="large" color="white" />}
+        </View>
+      </ScrollView>
       <NewScheduleModal
         open={newScheduleModal}
         setOpen={setNewScheduleModal}

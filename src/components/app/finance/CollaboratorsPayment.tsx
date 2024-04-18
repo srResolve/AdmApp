@@ -1,13 +1,14 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import { Alert, FlatList } from 'react-native';
+import { ActivityIndicator, Alert, ScrollView, View } from 'react-native';
 import { authGetAPI } from '../../../lib/axios';
+import { isCloseToBottom } from '../../../utils/scrollViewTrigger';
 import { TableContainer } from '../../global/TableContainer';
 import { CollaboratorWageCard } from './cards/CollaboratorWageCard';
 import { NewCollaboratorFinanceModal } from './modal/NewCollaboratorFinanceModal';
 export function CollaboratorsPayment() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [collaboratorList, setCollaboratorList] = useState();
+  const [collaboratorList, setCollaboratorList] = useState<any[]>([]);
   const [pages, setPages] = useState(0);
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
@@ -30,8 +31,26 @@ export function CollaboratorsPayment() {
       return Alert.alert('Erro', connect.body);
     }
 
+    if (filterOptions.query !== '') {
+      setPages(connect.body.pages);
+      return setCollaboratorList(connect.body.wage);
+    }
+    const map = new Map();
+
+    function addItemsToArray(arr: any[]) {
+      arr.forEach((item: { id: string }) => {
+        if (!map.has(item.id)) {
+          map.set(item.id, item);
+        }
+      });
+    }
+
+    addItemsToArray(collaboratorList || []);
+    addItemsToArray(connect.body.wage);
+
+    setLoading(false);
     setPages(connect.body.pages);
-    setCollaboratorList(connect.body.wage);
+    return setCollaboratorList(Array.from(map.values()));
   }
 
   useEffect(() => {
@@ -45,10 +64,7 @@ export function CollaboratorsPayment() {
         { label: 'Valor', value: 'value' },
         { label: 'Status', value: 'status' },
       ]}
-      loading={loading}
       title="Contas Bancárias"
-      pages={pages}
-      setCurrentPage={(page) => setFilterOptions({ ...filterOptions, page })}
       icon={<MaterialCommunityIcons name="account-cog-outline" size={20} color="white" />}
       statusOptions={[
         {
@@ -66,15 +82,22 @@ export function CollaboratorsPayment() {
       addButtonPress={() => setModal(true)}
       className="h-[55%]"
     >
-      <FlatList
-        data={collaboratorList}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
         className="px-2"
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <CollaboratorWageCard handleUpdate={fetchCollaborators} item={item} />
-        )}
-      />
-
+        onScroll={({ nativeEvent }) => {
+          if (isCloseToBottom(nativeEvent) && pages > filterOptions.page) {
+            setFilterOptions({ ...filterOptions, page: filterOptions.page + 1 });
+          }
+        }}
+      >
+        {collaboratorList.map((collaborator) => (
+          <CollaboratorWageCard handleUpdate={fetchCollaborators} item={collaborator} />
+        ))}
+        <View className="py-2 mb-4">
+          {loading && <ActivityIndicator size="large" color="white" />}
+        </View>
+      </ScrollView>
       <NewCollaboratorFinanceModal
         open={modal}
         setOpen={setModal}

@@ -1,22 +1,12 @@
 import { AntDesign } from '@expo/vector-icons';
-import {
-  ActivityIndicator,
-  Keyboard,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-  ViewProps,
-} from 'react-native';
+import { Keyboard, Text, TouchableWithoutFeedback, View, ViewProps } from 'react-native';
 import { ButtonWithIcon } from './ButtonWithIcon';
-import { Pagination } from './Pagination';
 import { Selector } from './Selector';
 import { IconBaseInput } from './input/IconBaseInput';
 
 interface Props extends ViewProps {
   children: React.ReactNode;
   title: string;
-  pages: number;
-  loading: boolean;
   icon: React.ReactNode;
   addButtonTitle: string;
   selectorOptions?: {
@@ -43,17 +33,13 @@ interface Props extends ViewProps {
     type: string;
     limit: number;
   }) => void;
-  setCurrentPage: (page: number) => void;
 }
 
 export const TableContainer = ({
   children,
   title,
-  pages,
-  setCurrentPage,
   icon,
   statusOptions,
-  loading,
   filterOptions,
   setFilterOptions,
   addButtonTitle,
@@ -74,15 +60,12 @@ export const TableContainer = ({
 }: Props) => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View
-        className={`w-full h-4/6 mt-5 rounded-lg border-2 border-zinc-100 bg-primary_800 overflow-hidden ${className}`}
-        {...rest}
-      >
-        <View className="border-b-2 border-zinc-100 w-full px-2 bg-primary_800 ">
+      <View className={`flex-1 rounded-lg bg-primary_800 overflow-hidden ${className}`} {...rest}>
+        <View className={`w-full px-2 bg-primary_800  `}>
           <View className="w-full justify-between flex-row items-center py-2 ">
             <View className="flex-row items-center">
               {icon}
-              <Text className="text-zinc-100 ml-2 font-bold text-xl">{title}</Text>
+              <Text className="text-zinc-100 ml-2 font-bold text-2xl">{title}</Text>
             </View>
             <ButtonWithIcon
               className="m-0"
@@ -121,20 +104,7 @@ export const TableContainer = ({
             </View>
           )}
         </View>
-        {loading ? (
-          <View className="flex-1 items-center justify-center">
-            <ActivityIndicator size="large" color="white" />
-          </View>
-        ) : (
-          children
-        )}
-        <View className="border-t-2 mt-2 border-zinc-100 px-2 w-full justify-center items-center">
-          <Pagination
-            totalPages={pages}
-            currentPage={filterOptions.page}
-            onPageChange={(page) => setCurrentPage(page)}
-          />
-        </View>
+        <View className="flex-1">{children}</View>
       </View>
     </TouchableWithoutFeedback>
   );

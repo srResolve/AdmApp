@@ -1,6 +1,6 @@
 import { FontAwesome } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import { Alert, FlatList } from 'react-native';
+import { ActivityIndicator, Alert, FlatList, View } from 'react-native';
 import { authGetAPI } from '../../../lib/axios';
 import { TableContainer } from '../../global/TableContainer';
 import { BankAccountCard } from './cards/BankAccountCard';
@@ -37,10 +37,7 @@ export function FinanceAccount() {
 
   return (
     <TableContainer
-      loading={loading}
       title="Contas Bancárias"
-      pages={pages}
-      setCurrentPage={(page) => setFilterOptions({ ...filterOptions, page })}
       filter={false}
       icon={<FontAwesome name="bank" size={18} color="white" />}
       statusOptions={[]}
@@ -56,6 +53,9 @@ export function FinanceAccount() {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <BankAccountCard item={item} />}
       />
+      <View className="py-2 mb-4">
+        {loading && <ActivityIndicator size="large" color="white" />}
+      </View>
       <NewBankAccountModal open={modal} setOpen={setModal} handleUpdate={fetchAccounts} />
     </TableContainer>
   );

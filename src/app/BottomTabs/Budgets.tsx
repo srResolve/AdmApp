@@ -1,12 +1,20 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import { Alert, FlatList, Keyboard, TouchableWithoutFeedback, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  Keyboard,
+  ScrollView,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import { Budget } from '../../@types/types';
 import { BudgetTableCard } from '../../components/app/budget/BudgetTableCard';
 import { CreateBudgetModal } from '../../components/app/budget/CreateBudgetModal';
-import { GlobalTitle } from '../../components/global/GlobalTitle';
+import { PageHeader } from '../../components/global/PageHeader';
 import { TableContainer } from '../../components/global/TableContainer';
 import { authGetAPI } from '../../lib/axios';
+import { isCloseToBottom } from '../../utils/scrollViewTrigger';
 import { BudgetStatusOptions } from '../../utils/statusOptions';
 export default function Budgets() {
   const [pages, setPages] = useState(0);
@@ -31,19 +39,37 @@ export default function Budgets() {
       `/budget?page=${filterOptions.page}&query=${filterOptions.query}&status=${filterOptions.status}&type=${filterOptions.type === 'status' ? 'name' : filterOptions.type}&limit=${filterOptions.limit}`
     );
 
-    setLoading(false);
     if (connect.status !== 200) {
       return Alert.alert('Erro', connect.body);
     }
 
-    setBudgets(connect.body.budget);
+    if (filterOptions.query !== '') {
+      setLoading(false);
+      return setBudgets(connect.body.budget);
+    }
+    const map = new Map();
+
+    function addItemsToArray(arr: Budget[]) {
+      arr.forEach((item: { id: string }) => {
+        if (!map.has(item.id)) {
+          map.set(item.id, item);
+        }
+      });
+    }
+
+    addItemsToArray(budgets);
+    addItemsToArray(connect.body.budget);
+
+    setLoading(false);
     setPages(connect.body.pages);
+    return setBudgets(Array.from(map.values()));
   }
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View className="flex-1 items-center px-4 bg-primary_800">
-        <GlobalTitle text="Clique em um orçamento para ver os detalhes, busque um orçamento específico ou crie um novo clicando em 'Novo Orçamento'." />
+      <View className="flex-1 items-center bg-primary_800">
+        <PageHeader />
+
         <TableContainer
           selectorOptions={[
             // {
@@ -71,21 +97,26 @@ export default function Budgets() {
           addButtonTitle="Novo Orçamento"
           statusOptions={BudgetStatusOptions}
           title="Orçamentos"
-          pages={pages}
-          loading={loading}
           filterOptions={filterOptions}
           setFilterOptions={setFilterOptions}
           icon={<FontAwesome5 name="clipboard-list" size={24} color="white" />}
-          setCurrentPage={(page) => setFilterOptions({ ...filterOptions, page })}
         >
-          <FlatList
-            data={budgets}
+          <ScrollView
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ flexGrow: 1, zIndex: 10 }}
             className="px-2"
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <BudgetTableCard item={item} handleUpdate={getBudgets} />}
-          />
+            onScroll={({ nativeEvent }) => {
+              if (isCloseToBottom(nativeEvent) && pages > filterOptions.page) {
+                setFilterOptions({ ...filterOptions, page: filterOptions.page + 1 });
+              }
+            }}
+          >
+            {budgets.map((budget) => (
+              <BudgetTableCard key={budget.id} item={budget} handleUpdate={getBudgets} />
+            ))}
+            <View className="py-2 mb-4">
+              {loading && <ActivityIndicator size="large" color="white" />}
+            </View>
+          </ScrollView>
         </TableContainer>
         <CreateBudgetModal open={createBudgetModal} setOpen={setCreateBudgetModal} />
       </View>

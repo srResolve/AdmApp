@@ -1,7 +1,8 @@
 import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import { Alert, FlatList, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, ScrollView, Text, View } from 'react-native';
 import { authGetAPI } from '../../../lib/axios';
+import { isCloseToBottom } from '../../../utils/scrollViewTrigger';
 import { TableContainer } from '../../global/TableContainer';
 import { FinanceScheduleCard } from './cards/FinanceScheduleCard';
 import { NewScheduleModal } from './modal/NewScheduleModal';
@@ -22,14 +23,32 @@ export function TodayFinanceSchedule() {
     setLoading(true);
     const connect = await authGetAPI('/finance/schedule/today');
 
-    console.log(connect);
-
     setLoading(false);
     if (connect.status !== 200) {
       return Alert.alert('Erro', connect.body);
     }
+
+    if (filterOptions.query !== '') {
+      setPages(connect.body.pages);
+      return setScheduleItems(connect.body.transactions);
+    }
+
+    const map = new Map();
+
+    function addItemsToArray(arr: any[]) {
+      arr.forEach((item: { id: string }) => {
+        if (!map.has(item.id)) {
+          map.set(item.id, item);
+        }
+      });
+    }
+
+    addItemsToArray(scheduleItems || []);
+    addItemsToArray(connect.body.transactions);
+
+    setLoading(false);
     setPages(connect.body.pages);
-    setScheduleItems(connect.body.transactions);
+    return setScheduleItems(Array.from(map.values()));
   }
 
   useEffect(() => {
@@ -38,10 +57,7 @@ export function TodayFinanceSchedule() {
 
   return (
     <TableContainer
-      loading={loading}
       title="Agenda do dia"
-      pages={pages}
-      setCurrentPage={(page) => setFilterOptions({ ...filterOptions, page })}
       icon={<AntDesign name="calendar" size={18} color="white" />}
       statusOptions={[
         {
@@ -61,14 +77,22 @@ export function TodayFinanceSchedule() {
       className="h-[55%]"
     >
       {scheduleItems && scheduleItems.length > 0 ? (
-        <FlatList
-          data={scheduleItems}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
           className="px-2"
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <FinanceScheduleCard handleUpdate={fetchSchedule} item={item} />
-          )}
-        />
+          onScroll={({ nativeEvent }) => {
+            if (isCloseToBottom(nativeEvent) && pages > filterOptions.page) {
+              setFilterOptions({ ...filterOptions, page: filterOptions.page + 1 });
+            }
+          }}
+        >
+          {scheduleItems.map((budget) => (
+            <FinanceScheduleCard key={budget.id} handleUpdate={fetchSchedule} item={budget} />
+          ))}
+          <View className="py-2 mb-4">
+            {loading && <ActivityIndicator size="large" color="white" />}
+          </View>
+        </ScrollView>
       ) : (
         <View className="flex-1 items-center justify-center">
           <Text className="text-zinc-100 font-semibold text-lg">Nenhum item encontrado</Text>

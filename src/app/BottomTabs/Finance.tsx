@@ -6,15 +6,15 @@ import { FinanceAccount } from '../../components/app/finance/FinanceAccounts';
 import { FinanceSchedule } from '../../components/app/finance/FinanceSchedule';
 import { FinancialRegister } from '../../components/app/finance/FinancialRegister';
 import { TodayFinanceSchedule } from '../../components/app/finance/TodayFinanceSchedule';
-import { GlobalTitle } from '../../components/global/GlobalTitle';
+import { PageHeader } from '../../components/global/PageHeader';
 
 export default function Finance() {
   const [currentTable, setCurrentTable] = useState('daySchedule');
 
   return (
     <View className="flex-1 items-center bg-primary_800">
-      <GlobalTitle text=" Aqui você pode conferir toda a parte financeira, basta escolher no card abaixo qual informação deseja ver." />
-      <View className="w-full mt-5 px-2">
+      <PageHeader />
+      <View className="w-full">
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row w-full">
           <TouchableOpacity
             className={`ml-5 rounded-lg px-6 py-4 flex-row  items-center justify-center ${currentTable === 'daySchedule' ? 'bg-primary_800 border-2 border-zinc-100' : 'bg-primary_400'}`}
