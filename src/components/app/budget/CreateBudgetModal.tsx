@@ -130,7 +130,7 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
           <View className="items-center mb-5 px-4">
             <ButtonWithIcon
               className="w-full justify-between bg-primary_800 py-4 rounded-2xl"
-              titleClassName="text-xl"
+              titleClassName="text-xl flex-1"
               title={selectedClient ? selectedClient.name : 'Selecionar cliente'}
               orientation="right"
               onPress={() => setClientModal(true)}

@@ -82,7 +82,7 @@ export default function Schedule() {
           {services.map((service) => (
             <ScheduleTableCard key={service.id} item={service} />
           ))}
-          <View className="py-2 mb-4">
+          <View className="py-4 mb-8">
             {loading && <ActivityIndicator size="large" color="white" />}
           </View>
         </ScrollView>

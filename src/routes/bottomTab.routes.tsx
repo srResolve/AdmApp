@@ -80,8 +80,7 @@ export function AppRoutes() {
           ),
         }}
       />
-
-      <Screen
+      {/* <Screen
         name="Finance"
         component={Finance}
         options={{
@@ -99,7 +98,7 @@ export function AppRoutes() {
             </>
           ),
         }}
-      />
+      /> */}
       <Screen
         name="Profile"
         component={Profile}
