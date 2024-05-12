@@ -1,6 +1,6 @@
 import { FontAwesome, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text } from 'react-native';
+import { Platform, Text } from 'react-native';
 import Budgets from '../app/BottomTabs/Budgets';
 import Finance from '../app/BottomTabs/Finance';
 import { Home } from '../app/BottomTabs/Home';
@@ -15,6 +15,7 @@ export function AppRoutes() {
         tabBarStyle: {
           paddingTop: 15,
           paddingBottom: 15,
+          height: 80,
           marginHorizontal: 10,
           width: '100%',
           marginLeft: 0,

@@ -138,12 +138,14 @@ export function CreateTaskAndProductModal({
                     renderItem={({ item, index }) => (
                       <>
                         <TaskAndProductCard
+                          hasPrice={hasPrice}
                           handleDelete={() => handleDelete(index)}
                           item={item}
                           handleEdit={() => setEditModal(true)}
                         />
                         <EditTaskAndProductModal
                           data={item}
+                          hasPrice={hasPrice}
                           title={title}
                           open={editModal}
                           setOpen={setEditModal}
@@ -157,12 +159,16 @@ export function CreateTaskAndProductModal({
                   />
                 </View>
               )}
-              <View className="flex-row gap-2 items-center mt-2">
-                <Text className="text-zinc-100 font-semibold">Valor Total: </Text>
-                <Text className="text-green-300 font-bold text-lg">
-                  {data.length > 0 && totalPriceCalc(data)}
-                </Text>
-              </View>
+              {hasPrice && (
+                <>
+                  <View className="flex-row gap-2 items-center mt-2">
+                    <Text className="text-zinc-100 font-semibold">Valor Total: </Text>
+                    <Text className="text-green-300 font-bold text-lg">
+                      {data.length > 0 && totalPriceCalc(data)}
+                    </Text>
+                  </View>
+                </>
+              )}
             </View>
           </View>
         </>

@@ -27,7 +27,7 @@ export function Home() {
         icon={<FontAwesome5 name="file-contract" size={32} color="white" />}
       />
       <ButtonWithIconAndDescription
-        title="Novo Serviço"
+        title="Nova Ordem de Serviço"
         subtitle="Crie uma nova ordem de serviço"
         subtitleClassName="ml-4"
         titleClassName="text-lg ml-4"

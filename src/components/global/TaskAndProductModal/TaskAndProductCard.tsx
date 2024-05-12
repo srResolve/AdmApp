@@ -8,11 +8,12 @@ interface Props {
     quantity: number;
     value: number;
   };
+  hasPrice?: boolean;
   handleDelete: () => void;
   handleEdit: () => void;
 }
 
-export function TaskAndProductCard({ item, handleDelete, handleEdit }: Props) {
+export function TaskAndProductCard({ item, handleDelete, handleEdit, hasPrice = true }: Props) {
   return (
     <View className="flex-row justify-between px-3 mt-1 bg-primary_200 p-2 rounded-lg w-full">
       <View className="gap-1 w-3/5">
@@ -32,19 +33,25 @@ export function TaskAndProductCard({ item, handleDelete, handleEdit }: Props) {
         </View>
       </View>
       <View>
-        <View className="flex-row items-center ">
-          <Text className="text-lg text-zinc-700">{item.quantity} x </Text>
-          <Text className="text-lg text-green-700 font-semibold">
-            {item.value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
-          </Text>
-        </View>
-        <Text className="mt-2 text-sm text-zinc-700 self-end">
-          Total:
-          {(item.value * item.quantity).toLocaleString('pt-br', {
-            style: 'currency',
-            currency: 'BRL',
-          })}
-        </Text>
+        <>
+          <View className="flex-row items-center ">
+            <Text className="text-lg text-zinc-700">{item.quantity} x </Text>
+            {hasPrice && (
+              <Text className="text-lg text-green-700 font-semibold">
+                {item.value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
+              </Text>
+            )}
+          </View>
+          {hasPrice && (
+            <Text className="mt-2 text-sm text-zinc-700 self-end">
+              Total:
+              {(item.value * item.quantity).toLocaleString('pt-br', {
+                style: 'currency',
+                currency: 'BRL',
+              })}
+            </Text>
+          )}
+        </>
       </View>
     </View>
   );

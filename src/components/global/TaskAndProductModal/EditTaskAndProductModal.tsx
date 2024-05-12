@@ -10,6 +10,7 @@ import { InputForm } from '../input/FormInput';
 interface Props {
   title: string;
   open: boolean;
+  hasPrice?: boolean;
   setOpen: (open: boolean) => void;
   data: {
     name: string;
@@ -19,7 +20,14 @@ interface Props {
   handleEdit: (data: any) => void;
 }
 
-export function EditTaskAndProductModal({ title, open, setOpen, data, handleEdit }: Props) {
+export function EditTaskAndProductModal({
+  title,
+  open,
+  setOpen,
+  data,
+  handleEdit,
+  hasPrice = true,
+}: Props) {
   const [formErrors, setFormErrors] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -48,7 +56,7 @@ export function EditTaskAndProductModal({ title, open, setOpen, data, handleEdit
   return (
     <Modal visible={open} transparent animationType="fade">
       <>
-        <View className="absolute top-0 left-0 right-0 z-10 pb-2  my-14 mx-6 rounded-xl items-center  bg-primary_600">
+        <View className="absolute top-0 left-0 right-0 z-20 pb-2  my-14 mx-6 rounded-xl items-center  bg-primary_600">
           <View className="flex-row items-center w-full">
             <BackButton onPress={() => setOpen(false)} />
             <Text className="text-zinc-100 self-center text-2xl font-bold">Editar Serviço</Text>
