@@ -20,7 +20,7 @@ export function DatePickerButton ({ date, setDate }: Props) {
         <>
         <ButtonWithIcon
           className=" justify-between bg-primary_400  h-14 border-zinc-100 border items-center"
-          titleClassName="text-xl mr-4"
+          titleClassName="text-xl text-primary_700 mr-4"
           orientation="right"
           onPress={() => setDatePicker(true)}
           title={date ? moment(date).format('DD/MM') : 'Data'}

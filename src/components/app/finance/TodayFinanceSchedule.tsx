@@ -95,7 +95,7 @@ export function TodayFinanceSchedule() {
         </ScrollView>
       ) : (
         <View className="flex-1 items-center justify-center">
-          <Text className="text-zinc-100 font-semibold text-lg">Nenhum item encontrado</Text>
+          <Text className="text-black font-semibold text-lg">Nenhum item encontrado</Text>
         </View>
       )}
       <NewScheduleModal

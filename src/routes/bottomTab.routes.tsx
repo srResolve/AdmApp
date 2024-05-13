@@ -19,7 +19,7 @@ export function AppRoutes() {
           marginHorizontal: 10,
           width: '100%',
           marginLeft: 0,
-          backgroundColor: '#303b71',
+          backgroundColor: '#ffffff',
           borderTopWidth: 0,
         },
       }}
@@ -34,9 +34,9 @@ export function AppRoutes() {
               <FontAwesome
                 name="home"
                 size={focused ? 36 : 32}
-                color={focused ? 'white' : '#a1a1aa'}
+                color={focused ? 'black' : '#a1a1aa'}
               />
-              <Text className={`${focused ? 'text-white' : 'text-zinc-400'} text-sm font-bold`}>
+              <Text className={`${focused ? 'text-black' : 'text-zinc-400'} text-sm font-bold`}>
                 Inicio
               </Text>
             </>
@@ -53,9 +53,9 @@ export function AppRoutes() {
               <FontAwesome5
                 name="file-contract"
                 size={focused ? 36 : 32}
-                color={focused ? 'white' : '#a1a1aa'}
+                color={focused ? 'black' : '#a1a1aa'}
               />
-              <Text className={`${focused ? 'text-white' : 'text-zinc-400'} text-sm font-bold`}>
+              <Text className={`${focused ? 'text-black' : 'text-zinc-400'} text-sm font-bold`}>
                 Orçamento
               </Text>
             </>
@@ -72,9 +72,9 @@ export function AppRoutes() {
               <FontAwesome
                 name="calendar"
                 size={focused ? 36 : 32}
-                color={focused ? 'white' : '#a1a1aa'}
+                color={focused ? 'black' : '#a1a1aa'}
               />
-              <Text className={`${focused ? 'text-white' : 'text-zinc-400'} text-sm font-bold`}>
+              <Text className={`${focused ? 'text-black' : 'text-zinc-400'} text-sm font-bold`}>
                 Agenda
               </Text>
             </>
@@ -91,9 +91,9 @@ export function AppRoutes() {
               <MaterialCommunityIcons
                 name="finance"
                 size={focused ? 36 : 32}
-                color={focused ? 'white' : '#a1a1aa'}
+                color={focused ? 'black' : '#a1a1aa'}
               />
-              <Text className={`${focused ? 'text-white' : 'text-zinc-400'} text-sm font-bold`}>
+              <Text className={`${focused ? 'text-black' : 'text-zinc-400'} text-sm font-bold`}>
                 Financeiro
               </Text>
             </>
@@ -110,9 +110,9 @@ export function AppRoutes() {
               <FontAwesome
                 name="user"
                 size={focused ? 36 : 32}
-                color={focused ? 'white' : '#a1a1aa'}
+                color={focused ? 'black' : '#a1a1aa'}
               />
-              <Text className={`${focused ? 'text-white' : 'text-zinc-400'} text-sm font-bold`}>
+              <Text className={`${focused ? 'text-black' : 'text-zinc-400'} text-sm font-bold`}>
                 Perfil
               </Text>
             </>

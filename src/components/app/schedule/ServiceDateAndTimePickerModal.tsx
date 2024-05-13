@@ -26,10 +26,10 @@ export function ServiceDateAndTimePickerModal({ open, setOpen, setExecutionTime 
   return (
     <Modal visible={open} transparent animationType="fade">
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View className="absolute left-0 top-20 right-0 z-10  pb-8  my-14 mx-6 rounded-xl items-center  bg-primary_600">
+        <View className="absolute left-0 top-20 right-0 z-10  pb-8  my-14 mx-6 rounded-xl items-center  bg-white">
           <View className="flex-row items-center w-full">
             <BackButton onPress={() => setOpen(false)} />
-            <Text className="text-zinc-100 self-center text-2xl font-bold">Data e Hora</Text>
+            <Text className="text-black self-center text-2xl font-bold">Data e Hora</Text>
           </View>
           <View className="flex-row items-center w-full px-4 justify-between">
             <BaseInput

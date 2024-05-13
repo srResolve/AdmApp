@@ -35,10 +35,10 @@ export function Pagination({ totalPages, currentPage, onPageChange }: Props) {
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => onPageChange(item)}
-            className={`${item === currentPage ? 'bg-secondary_600 px-2' : 'px-1'} ml-px mr-px rounded`}
+            className={`${item === currentPage ? 'bg-blue-500 px-2' : 'bg-[#dcdcdd] px-1'} ml-px mr-px rounded`}
           >
             <Text
-              className={` text-2xl font-semibold ${item === currentPage ? 'text-zinc-700' : 'text-white'}`}
+              className={` text-2xl font-semibold ${item === currentPage ? 'text-white' : 'text-white'}`}
             >
               {item}
             </Text>

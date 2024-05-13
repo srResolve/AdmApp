@@ -80,7 +80,7 @@ export function BudgetDetailsModal({ open, setOpen, budget, handleUpdate }: Prop
             <View className="flex-row items-center justify-between pr-4 w-full">
               <View className="flex-row items-center">
                 <BackButton onPress={() => setOpen(false)} />
-                <Text className="text-zinc-100 self-center text-2xl font-bold">Detalhes</Text>
+                <Text className="text-black self-center text-2xl font-bold">Detalhes</Text>
               </View>
               <View className="flex-row">
                 <IconButton
@@ -99,7 +99,7 @@ export function BudgetDetailsModal({ open, setOpen, budget, handleUpdate }: Prop
             <View className="px-4 w-full items-center">
               <View className="flex-row mt-4 bg-primary_700 rounded-lg px-2 py-1 items-center">
                 <View className="w-4/6">
-                  <Text numberOfLines={1} className="text-zinc-100 font-semibold text-lg">
+                  <Text numberOfLines={1} className="text-black font-semibold text-lg">
                     {budget.client.name}
                   </Text>
                   <Text numberOfLines={1} className="text-zinc-300 font-semibold">
@@ -116,7 +116,7 @@ export function BudgetDetailsModal({ open, setOpen, budget, handleUpdate }: Prop
                 icon={<Feather name="share" size={28} color="white" />}
               />
 
-              <Text className="text-zinc-100 self-center text-2xl font-bold mt-4">
+              <Text className="text-black self-center text-2xl font-bold mt-4">
                 Atualizar Status
               </Text>
               <View className="w-3/4">

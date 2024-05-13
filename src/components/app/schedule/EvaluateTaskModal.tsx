@@ -43,11 +43,11 @@ export function EvaluateTaskModal({ open, setOpen, task, handleUpdate }: Props) 
           <View className=" items-center pr-4 w-full">
             <View className="flex-row items-center pr-4 w-full">
               <BackButton onPress={() => setOpen(false)} />
-              <Text className="text-zinc-100 self-center text-2xl font-bold">Detalhes</Text>
+              <Text className="text-black self-center text-2xl font-bold">Detalhes</Text>
             </View>
           </View>
           <View className="bg-primary_400 rounded-lg border border-zinc-100 px-4">
-            <Text className="text-zinc-100 font-semibold text-xl">{task.name}</Text>
+            <Text className="text-black font-semibold text-xl">{task.name}</Text>
           </View>
           <FlatList
             data={task.photo}

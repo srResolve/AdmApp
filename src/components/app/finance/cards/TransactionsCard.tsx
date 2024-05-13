@@ -17,11 +17,11 @@ export function TransactionsCard({ item }: Props) {
       className={`flex-row justify-between p-1 px-2 items-center bg-primary_400 mt-2 rounded-lg border-2 border-zinc-100`}
     >
       <View className="w-1/3">
-        <Text className="text-zinc-100 font-semibold text-lg">{item.description}</Text>
+        <Text className="text-black font-semibold text-lg">{item.description}</Text>
         <Text className="text-zinc-800 font-semibold">{moment(item.date).format('DD/MM')}</Text>
       </View>
       <View className="bg-primary_600  px-2 py-1 rounded-lg items-center justify-center w-1/4">
-        <Text numberOfLines={1} className="text-zinc-100 font-semibold text-sm">
+        <Text numberOfLines={1} className="text-black font-semibold text-sm">
           {item.category}
         </Text>
       </View>

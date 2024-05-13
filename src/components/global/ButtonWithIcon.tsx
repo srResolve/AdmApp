@@ -23,7 +23,7 @@ export function ButtonWithIcon({
       {...rest}
     >
       {icon}
-      <Text numberOfLines={1} className={`mx-1 text-zinc-100 ${titleClassName} font-bold`}>
+      <Text numberOfLines={1} className={`mx-1 text-white font-bold ${titleClassName} `}>
         {title}
       </Text>
     </TouchableOpacity>

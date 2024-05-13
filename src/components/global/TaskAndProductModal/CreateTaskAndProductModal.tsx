@@ -71,10 +71,10 @@ export function CreateTaskAndProductModal({
     <Modal visible={open} transparent animationType="fade">
       <>
         <>
-          <View className="absolute top-0 left-0 right-0 z-10 max-h-[] h-5/6 pb-2  my-14 mx-6 rounded-xl items-center  bg-primary_600">
+          <View className="absolute top-0 left-0 right-0 z-10 max-h-[] h-5/6 pb-2  my-14 mx-6 rounded-xl items-center  bg-white">
             <View className="flex-row items-center w-full">
               <BackButton onPress={() => setOpen(false)} />
-              <Text className="text-zinc-100 self-center text-2xl font-bold">{pluralTitle}</Text>
+              <Text className="text-black self-center text-2xl font-bold">{pluralTitle}</Text>
             </View>
             <View className="items-center flex-1 w-full px-4">
               <AnimatedButton
@@ -162,7 +162,7 @@ export function CreateTaskAndProductModal({
               {hasPrice && (
                 <>
                   <View className="flex-row gap-2 items-center mt-2">
-                    <Text className="text-zinc-100 font-semibold">Valor Total: </Text>
+                    <Text className="text-black font-semibold">Valor Total: </Text>
                     <Text className="text-green-300 font-bold text-lg">
                       {data.length > 0 && totalPriceCalc(data)}
                     </Text>

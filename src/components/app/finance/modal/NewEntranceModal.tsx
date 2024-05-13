@@ -61,10 +61,10 @@ export function NewEntranceModal({ open, setOpen, handleUpdate }: Props) {
   return (
     <Modal visible={open} transparent animationType="fade">
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View className="absolute left-0 right-0 z-10  pb-2  mx-6 rounded-xl items-center  bg-primary_600 top-16">
+        <View className="absolute left-0 right-0 z-10  pb-2  mx-6 rounded-xl items-center  bg-white top-16">
           <View className="flex-row items-center w-full p-2">
-            <FontAwesome6 name="money-bills" size={28} color="white" />
-            <Text className="text-zinc-100 self-center text-2xl font-bold ml-2">
+            <FontAwesome6 name="money-bills" size={28} color="black" />
+            <Text className="text-black self-center text-2xl font-bold ml-2">
               Entradas e Saídas
             </Text>
           </View>
@@ -74,7 +74,7 @@ export function NewEntranceModal({ open, setOpen, handleUpdate }: Props) {
               error={[]}
               name="description"
               placeholder="Descrição"
-              containerStyle="w-full"
+              containerStyle="w-full bg-blue-500"
             />
 
             <BankAccountSelector handleSelect={setAccount} selectedValue={account} />
@@ -82,7 +82,7 @@ export function NewEntranceModal({ open, setOpen, handleUpdate }: Props) {
             <FinanceTypeSelector setSelected={setType} selected={type} />
             <View className="w-full flex-row justify-between">
               <View className="w-6/12">
-                <Text className="text-zinc-100 text-lg font-semibold">Valor</Text>
+                <Text className="text-black text-lg font-semibold">Valor</Text>
                 <InputForm
                   control={control}
                   error={[]}
@@ -92,7 +92,7 @@ export function NewEntranceModal({ open, setOpen, handleUpdate }: Props) {
                 />
               </View>
               <View className="w-5/12">
-                <Text className="text-zinc-100 text-lg font-semibold">Data</Text>
+                <Text className="text-black text-lg font-semibold">Data</Text>
                 <DatePickerButton setDate={setDate} date={date} />
               </View>
             </View>

@@ -12,10 +12,10 @@ interface Props {
 export function ObservationModal({ open, setOpen, observation, setObservation }: Props) {
   return (
     <Modal visible={open} transparent animationType="fade">
-      <View className="absolute left-0 right-0 z-10 h-2/4 pb-2  my-14 mx-6 rounded-xl items-center  bg-primary_600 px-4 top-32">
+      <View className="absolute left-0 right-0 z-10 h-2/4 pb-2  my-14 mx-6 rounded-xl items-center  bg-white px-4 top-32">
         <View className="flex-row items-center w-full">
           <BackButton onPress={() => setOpen(false)} />
-          <Text className="text-zinc-100 self-center text-2xl font-bold">Observação</Text>
+          <Text className="text-black self-center text-2xl font-bold">Observação</Text>
         </View>
         <BaseInput
           error={[]}

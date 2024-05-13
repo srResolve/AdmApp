@@ -121,16 +121,16 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
       <View className=" absolute left-0 right-0 z-10 max-h-screen">
         <ScrollView
           showsVerticalScrollIndicator={false}
-          className="my-14 mx-5 bg-primary_600  rounded-3xl"
+          className="my-14 mx-5 bg-white  rounded-3xl"
         >
           <View className="flex-row items-center w-full">
             <BackButton onPress={() => setOpen(false)} />
-            <Text className="text-zinc-100 self-center text-2xl font-bold">Criar Orçamento</Text>
+            <Text className="text-black self-center text-2xl font-bold">Criar Orçamento</Text>
           </View>
           <View className="items-center mb-5 px-4">
             <ButtonWithIcon
-              className="w-full justify-between bg-primary_800 py-4 rounded-2xl"
-              titleClassName="text-xl flex-1"
+              className="w-full justify-between bg-blue-500 py-4 rounded-2xl"
+              titleClassName="text-xl text-white flex-1"
               title={selectedClient ? selectedClient.name : 'Selecionar cliente'}
               orientation="right"
               onPress={() => setClientModal(true)}
@@ -147,14 +147,14 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
               <>
                 <DoubleIconButton
                   title="Serviços"
-                  leftIcon={<Entypo name="clipboard" size={24} color="white" />}
+                  leftIcon={<Entypo name="clipboard" size={24} color="black" />}
                   onPress={() => setCreateTaskModal(true)}
                   rightIcon={
                     services.length === 0 ? (
-                      <AntDesign name="pluscircleo" size={24} color="white" />
+                      <AntDesign name="pluscircleo" size={24} color="black" />
                     ) : (
                       <View className="flex-row items-center ">
-                        <Text className="text-sm text-zinc-300 font-bold">
+                        <Text className="text-sm text-black font-bold">
                           {totalPriceCalc(services)}
                         </Text>
                         <MaterialIcons name="chevron-right" size={30} color="green" />
@@ -165,13 +165,13 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
                 <DoubleIconButton
                   title="Materiais"
                   onPress={() => setCreateProductModal(true)}
-                  leftIcon={<Feather name="shopping-cart" size={24} color="white" />}
+                  leftIcon={<Feather name="shopping-cart" size={24} color="black" />}
                   rightIcon={
                     products.length === 0 ? (
-                      <AntDesign name="pluscircleo" size={24} color="white" />
+                      <AntDesign name="pluscircleo" size={24} color="black" />
                     ) : (
                       <View className="flex-row items-center ">
-                        <Text className="text-sm text-zinc-300 font-bold">
+                        <Text className="text-sm text-black font-bold">
                           {totalPriceCalc(products)}
                         </Text>
                         <MaterialIcons name="chevron-right" size={30} color="green" />
@@ -180,7 +180,7 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
                   }
                 />
                 <View className="flex-row gap-2 items-center mt-2">
-                  <Text className="text-zinc-100 font-semibold">Valor Total: </Text>
+                  <Text className="text-black font-semibold">Valor Total: </Text>
                   <Text className="text-green-900 font-bold text-lg">
                     {totalPriceCalc([...services, ...products])}
                   </Text>
@@ -196,36 +196,36 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
             {extraInfoOpen && (
               <>
                 <DoubleIconButton
-                  leftIcon={<AntDesign name="clockcircle" size={24} color="white" />}
+                  leftIcon={<AntDesign name="clockcircle" size={24} color="black" />}
                   title="Validade do Orçamento"
                   onPress={() => setExpireDateModal(true)}
                   rightIcon={
                     expireDate === null ? (
-                      <AntDesign name="pluscircleo" size={24} color="white" />
+                      <AntDesign name="pluscircleo" size={24} color="black" />
                     ) : (
                       <AntDesign name="checkcircleo" size={24} color="green" />
                     )
                   }
                 />
                 <DoubleIconButton
-                  leftIcon={<AntDesign name="calendar" size={24} color="white" />}
+                  leftIcon={<AntDesign name="calendar" size={24} color="black" />}
                   title="Prazo de execução"
                   onPress={() => setExecutionDateModal(true)}
                   rightIcon={
                     executionDate === null ? (
-                      <AntDesign name="pluscircleo" size={24} color="white" />
+                      <AntDesign name="pluscircleo" size={24} color="black" />
                     ) : (
                       <AntDesign name="checkcircleo" size={24} color="green" />
                     )
                   }
                 />
                 <DoubleIconButton
-                  leftIcon={<Feather name="alert-circle" size={24} color="white" />}
+                  leftIcon={<Feather name="alert-circle" size={24} color="black" />}
                   title="Observações"
                   onPress={() => setObservationModal(true)}
                   rightIcon={
                     observation === null || observation === '' ? (
-                      <AntDesign name="pluscircleo" size={24} color="white" />
+                      <AntDesign name="pluscircleo" size={24} color="black" />
                     ) : (
                       <AntDesign name="checkcircleo" size={24} color="green" />
                     )
@@ -256,11 +256,11 @@ export function CreateBudgetModal({ setOpen, open }: Props) {
                   onImagemChange={(data) => setImages((old) => [...old, data])}
                 />
                 <DoubleIconButton
-                  leftIcon={<Feather name="camera" size={24} color="white" />}
+                  leftIcon={<Feather name="camera" size={24} color="black" />}
                   title="Adicionar Fotos"
-                  className="bg-primary_800"
+                  className="bg-[#bfdbfe]"
                   onPress={() => actionSheetRef.current?.show()}
-                  rightIcon={<AntDesign name="pluscircleo" size={24} color="white" />}
+                  rightIcon={<AntDesign name="pluscircleo" size={24} color="black" />}
                 />
               </View>
             )}

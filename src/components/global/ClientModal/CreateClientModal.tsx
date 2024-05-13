@@ -69,15 +69,15 @@ export function CreateClientModal({ open, setOpen }: Props) {
     <Modal visible={open} transparent animationType="fade">
       {open && (
         <>
-          <View className="absolute left-0 right-0 z-10 h-content pb-2 mx-6 rounded-xl items-center  bg-primary_600 top-32">
+          <View className="absolute left-0 right-0 z-10 h-content pb-2 mx-6 rounded-xl items-center  bg-white top-32">
             <View className="flex-row items-center justify-between w-full pr-2">
               <View className="flex-row">
                 <BackButton onPress={() => setOpen(false)} />
-                <Text className="text-zinc-100 self-center text-2xl font-bold">Criar cliente</Text>
+                <Text className="text-black self-center text-2xl font-bold">Criar cliente</Text>
               </View>
               <ButtonWithIcon
                 title="Contatos"
-                className="bg-primary_800"
+                className="bg-primary_600"
                 onPress={getContacts}
                 icon={<AntDesign name="contacts" size={24} color="white" />}
               />

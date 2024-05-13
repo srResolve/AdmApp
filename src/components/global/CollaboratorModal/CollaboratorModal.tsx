@@ -28,10 +28,10 @@ export function CollaboratorModal({ open, setOpen, selectedValue, handleSelect }
 
   return (
     <Modal visible={open} animationType="slide" transparent>
-      <View className="absolute left-0 right-0 z-10  pb-2 mx-6 rounded-xl items-center  bg-primary_600 top-24 h-[70%]">
+      <View className="absolute left-0 right-0 z-10  pb-2 mx-6 rounded-xl items-center  bg-white top-24 h-[70%]">
         <View className="flex-row items-center w-full">
           <BackButton onPress={() => setOpen(false)} />
-          <Text className="text-zinc-100 self-center text-2xl font-bold">Colaboradores</Text>
+          <Text className="text-black self-center text-2xl font-bold">Colaboradores</Text>
         </View>
         <View className="w-full max-h-[90%]">
           {loading ? (
@@ -46,7 +46,7 @@ export function CollaboratorModal({ open, setOpen, selectedValue, handleSelect }
                   onPress={() => handleSelect({ name: item.name, id: item.id })}
                   className={`w-full h-12 items-center justify-between flex-row px-4 rounded-xl mt-2 bg-primary_400 ${selectedValue === item.id && 'bg-green-800 border border-zinc-100'}`}
                 >
-                  <Text numberOfLines={1} className="text-zinc-100 font-bold text-xl max-w-[90%]">
+                  <Text numberOfLines={1} className={`${selectedValue === item.id ? "text-white":"text-primary_800 "} font-bold text-xl max-w-[90%]`}>
                     {item.name}
                   </Text>
                   {selectedValue === item.id && <AntDesign name="check" size={24} color="white" />}

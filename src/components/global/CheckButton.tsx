@@ -15,7 +15,7 @@ export function CheckButton({ checked, onChange, title }: Props) {
       >
         {checked ? <AntDesign name="check" size={24} color="green" /> : null}
       </TouchableOpacity>
-      <Text className="ml-2 text-lg text-zinc-100 font-semibold">{title}</Text>
+      <Text className="ml-2 text-lg text-black font-semibold">{title}</Text>
     </View>
   );
 }

@@ -65,7 +65,7 @@ export const TableContainer = ({
           <View className="w-full justify-between flex-row items-center py-2 ">
             <View className="flex-row items-center">
               {icon}
-              <Text className="text-zinc-100 ml-2 font-bold text-2xl">{title}</Text>
+              <Text className="text-black ml-2 font-bold text-2xl">{title}</Text>
             </View>
             <ButtonWithIcon
               className="m-0"

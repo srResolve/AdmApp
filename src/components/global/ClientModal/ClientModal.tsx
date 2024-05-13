@@ -48,15 +48,15 @@ export function ClientModal({ open, setOpen, selectedClient, setSelectedClient }
 
   return (
     <Modal visible={open} transparent animationType="fade">
-      <View className="absolute left-0 right-0 z-10 h-3/4 pb-2 mx-6 rounded-xl items-center  bg-primary_600  my-14">
+      <View className="absolute left-0 right-0 z-10 h-3/4 pb-2 mx-6 rounded-xl items-center  bg-white  my-14">
         <View className="flex-row items-center justify-between w-full pr-2">
           <View className="flex-row">
             <BackButton onPress={() => setOpen(false)} />
-            <Text className="text-zinc-100 self-center text-2xl font-bold">Clientes</Text>
+            <Text className="text-black self-center text-2xl font-bold">Clientes</Text>
           </View>
           <ButtonWithIcon
             title="Novo cliente"
-            className="bg-primary_800"
+            className="bg-blue-500"
             onPress={() => setCreateClientModal(true)}
             icon={<AntDesign name="pluscircle" size={24} color="white" />}
           />
@@ -64,10 +64,10 @@ export function ClientModal({ open, setOpen, selectedClient, setSelectedClient }
         <View className="flex-1 items-center w-full px-4">
           <IconBaseInput
             error={[]}
-            containerStyle="flex-row border items-center mt-4 justify-between pr-2 bg-primary_400 h-14 rounded-lg overflow-hidden border-zinc-100 w-full"
+            containerStyle="flex-row border items-center text-white mt-4 justify-between pr-2 bg-blue-500 h-14 rounded-lg overflow-hidden border-zinc-100 w-full"
             name="search"
             placeholder="Buscar..."
-            placeholderTextColor="#3f3f46"
+            placeholderTextColor="#fff"
             onChangeText={setSearchText}
             value={searchText}
             icon={<AntDesign name="search1" size={24} color="white" />}

@@ -74,7 +74,7 @@ export function FinanceCategorySelector({ handleSelect, selectedValue }: Props) 
         <View className="absolute left-0 right-0 z-10  pb-2 mx-6 rounded-xl items-center  bg-primary_600 top-24 h-[70%]">
           <View className="w-full flex-row justify-between px-2 items-center">
             <BackButton onPress={() => setModalOpen(false)} />
-            <Text className="text-zinc-100 self-center text-2xl font-bold">Categorias</Text>
+            <Text className="text-black self-center text-2xl font-bold">Categorias</Text>
             <IconButton
               onPress={() => setCreateCategory(!createCategory)}
               className="bg-green-700"
@@ -111,7 +111,7 @@ export function FinanceCategorySelector({ handleSelect, selectedValue }: Props) 
                       onPress={() => handleSelect(item.id)}
                       className={`w-full h-12 items-center justify-between flex-row px-4 rounded-xl mt-2 bg-primary_400 ${selectedValue === item.id && 'bg-green-800 border border-zinc-100'}`}
                     >
-                      <Text className="text-zinc-100 font-bold text-xl">{item.name}</Text>
+                      <Text className="text-black font-bold text-xl">{item.name}</Text>
                       {selectedValue === item.id && (
                         <AntDesign name="check" size={24} color="white" />
                       )}

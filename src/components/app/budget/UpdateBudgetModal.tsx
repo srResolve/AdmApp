@@ -77,7 +77,7 @@ export function UpdateBudgetModal({ open, setOpen, budget, handleUpdate }: Props
         >
           <View className="flex-row items-center w-full">
             <BackButton onPress={() => setOpen(false)} />
-            <Text className="text-zinc-100 self-center text-2xl font-bold">Editar Orçamento</Text>
+            <Text className="text-black self-center text-2xl font-bold">Editar Orçamento</Text>
           </View>
           <View className="items-center mb-5 px-4">
             <AnimatedButton open={orderOpen} title="Pedido" setOpen={setOrderOpen} />

@@ -58,7 +58,7 @@ export function NewCollaboratorFinanceModal({ open, setOpen, handleUpdate }: Pro
       <View className="absolute left-0 right-0 z-10  pb-2  my-14 mx-6 rounded-xl items-center  bg-primary_600 top-32">
         <View className="flex-row items-center w-full p-2">
           <FontAwesome5 name="users-cog" size={28} color="white" />
-          <Text className="text-zinc-100 self-center text-2xl font-bold ml-2">Colaboradores</Text>
+          <Text className="text-black self-center text-2xl font-bold ml-2">Colaboradores</Text>
         </View>
         <View className="px-4 w-full items-center">
           <DoubleIconButton
@@ -71,7 +71,7 @@ export function NewCollaboratorFinanceModal({ open, setOpen, handleUpdate }: Pro
           />
           <View className="w-full flex-row justify-between mt-4">
             <View className="w-6/12">
-              <Text className="text-zinc-100 text-lg font-semibold">Valor</Text>
+              <Text className="text-black text-lg font-semibold">Valor</Text>
               <InputForm
                 control={control}
                 error={[]}
@@ -81,7 +81,7 @@ export function NewCollaboratorFinanceModal({ open, setOpen, handleUpdate }: Pro
               />
             </View>
             <View className="w-5/12">
-              <Text className="text-zinc-100 text-lg font-semibold">Data</Text>
+              <Text className="text-black text-lg font-semibold">Data</Text>
               <DatePickerButton date={date} setDate={setDate} />
             </View>
           </View>

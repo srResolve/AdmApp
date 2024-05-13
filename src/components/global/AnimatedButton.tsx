@@ -20,13 +20,13 @@ export function AnimatedButton({ open, title, setOpen }: Props) {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         setOpen(!open);
       }}
-      className="w-full justify-between m-4 flex-row  items-center"
+      className="w-full justify-between  m-4 flex-row  items-center"
     >
-      <Text className="text-zinc-100 text-2xl font-bold self-start">{title}</Text>
+      <Text className="text-black text-2xl font-bold self-start">{title}</Text>
       <AntDesign
         name="downcircle"
         size={24}
-        color="white"
+        color="#3b82f6"
         style={{ transform: open ? [{ rotate: '180deg' }] : [{ rotate: '0deg' }] }}
       />
     </TouchableOpacity>

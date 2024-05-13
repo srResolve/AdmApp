@@ -28,8 +28,8 @@ export function ButtonWithIconAndDescription({
     >
       {icon}
       <View>
-        <Text className={`mx-1 text-zinc-100 ${titleClassName} font-bold`}>{title}</Text>
-        <Text className={`mx-1 text-zinc-100 ${subtitleClassName}`}>{subtitle}</Text>
+        <Text className={`mx-1 text-black ${titleClassName} font-bold`}>{title}</Text>
+        <Text className={`mx-1 text-black ${subtitleClassName}`}>{subtitle}</Text>
       </View>
     </TouchableOpacity>
   );

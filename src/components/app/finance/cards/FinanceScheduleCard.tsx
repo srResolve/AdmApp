@@ -105,7 +105,7 @@ export function FinanceScheduleCard({ item, handleUpdate }: Props) {
         className="flex-row justify-between p-1 px-2 items-center bg-primary_400 mt-2 rounded-lg border border-zinc-100"
       >
         <View className="w-1/3">
-          <Text numberOfLines={1} className="text-zinc-100 font-semibold text-lg">
+          <Text numberOfLines={1} className="text-black font-semibold text-lg">
             {item.name}
           </Text>
           <View className="flex-row">
@@ -132,7 +132,7 @@ export function FinanceScheduleCard({ item, handleUpdate }: Props) {
         <View className="absolute left-0 right-0 z-10  pb-2  my-14 mx-6 rounded-xl items-center  bg-primary_600 top-32">
           <View className="flex-row items-center w-full justify-between pr-2">
             <BackButton onPress={() => setModal(false)} />
-            <Text className="text-zinc-100 self-center text-2xl font-bold">Detalhes</Text>
+            <Text className="text-black self-center text-2xl font-bold">Detalhes</Text>
             <View className="flex-row">
               <IconButton
                 onPress={() => setUpdateValueModal(true)}
@@ -149,7 +149,7 @@ export function FinanceScheduleCard({ item, handleUpdate }: Props) {
           </View>
           <View className="flex-row mt-4 bg-primary_700 rounded-lg px-2 py-1 items-center">
             <View className="w-4/6">
-              <Text numberOfLines={1} className="text-zinc-100 font-semibold text-lg">
+              <Text numberOfLines={1} className="text-black font-semibold text-lg">
                 {item.name}
               </Text>
               <Text numberOfLines={1} className="text-zinc-300 font-semibold">

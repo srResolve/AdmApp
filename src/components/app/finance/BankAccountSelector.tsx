@@ -40,9 +40,9 @@ export function BankAccountSelector({ handleSelect, selectedValue }: Props) {
     <View>
       <DoubleIconButton
         onPress={() => setModal(true)}
-        leftIcon={<MaterialIcons name="folder-copy" size={28} color="white" />}
-        rightIcon={<Entypo name="chevron-down" size={28} color="white" />}
-        className="bg-primary_400 border border-zinc-50"
+        leftIcon={<MaterialIcons name="folder-copy" size={28} color="#5b5859" />}
+        rightIcon={<Entypo name="chevron-down" size={28} color="#5b5859" />}
+        className="bg-lightBlue border border-zinc-50"
         title={accounts.find((item) => item.id === selectedValue)?.name || 'Selecione uma conta'}
         titleClassName="text-xl"
       />
@@ -51,7 +51,7 @@ export function BankAccountSelector({ handleSelect, selectedValue }: Props) {
         <View className="absolute left-0 right-0 z-10  pb-2 mx-6 rounded-xl items-center  bg-primary_600 top-24 h-[70%]">
           <View className="w-full flex-row  px-2 items-center">
             <BackButton onPress={() => setModal(false)} />
-            <Text className="text-zinc-100 self-center text-2xl font-bold">Contas</Text>
+            <Text className="text-black self-center text-2xl font-bold">Contas</Text>
           </View>
 
           <View className="w-full max-h-[90%]">
@@ -67,7 +67,7 @@ export function BankAccountSelector({ handleSelect, selectedValue }: Props) {
                     onPress={() => handleSelect(item.id)}
                     className={`w-full h-12 items-center justify-between flex-row px-4 rounded-xl mt-2 bg-primary_400 ${selectedValue === item.id && 'bg-green-800 border border-zinc-100'}`}
                   >
-                    <Text className="text-zinc-100 font-bold text-xl">{item.name}</Text>
+                    <Text className="text-black font-bold text-xl">{item.name}</Text>
                     {selectedValue === item.id && (
                       <AntDesign name="check" size={24} color="white" />
                     )}

@@ -24,7 +24,7 @@ export function BudgetTableCard({ item, handleUpdate, ...rest }: Props) {
       {...rest}
     >
       <View className="w-4/6">
-        <Text numberOfLines={1} className="text-zinc-100 font-semibold text-lg">
+        <Text numberOfLines={1} className="text-black font-semibold text-lg">
           {item.client.name}
         </Text>
         <Text numberOfLines={1} className="text-zinc-800 font-semibold">

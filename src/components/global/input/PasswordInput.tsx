@@ -35,9 +35,9 @@ export function PasswordInput({ containerStyle, error, editable = true, ...rest 
         allowFontScaling={false}
         onBlur={() => onBlurVerify()}
         {...rest}
-        placeholderTextColor="#3f3f46"
+        placeholderTextColor="#949495"
         secureTextEntry={hidePass}
-        className="w-5/6 h-full px-4 text-app text-zinc-100 "
+        className="w-5/6 h-full px-4 text-app text-primary_800 "
       />
       <TouchableOpacity
         className="w-1/6 h-full items-center justify-center "

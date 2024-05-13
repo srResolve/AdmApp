@@ -25,14 +25,14 @@ export function DatePickerModal({ open, setOpen, date, setDate, title, placehold
 
   return (
     <Modal visible={open} transparent animationType="fade">
-      <View className="absolute left-0 right-0 z-10  pb-8  my-14 mx-6 rounded-xl items-center  bg-primary_600 px-4 top-44">
+      <View className="absolute left-0 right-0 z-10  pb-8  my-14 mx-6 rounded-xl items-center  bg-white px-4 top-44">
         <View className="flex-row items-center w-full">
           <BackButton onPress={() => setOpen(false)} />
-          <Text className="text-zinc-100 self-center text-2xl font-bold">{title}</Text>
+          <Text className="text-black self-center text-2xl font-bold">{title}</Text>
         </View>
         <ButtonWithIcon
           className=" justify-between bg-primary_400"
-          titleClassName="text-xl mr-4"
+          titleClassName="text-xl text-primary_900  font-medium mr-4"
           orientation="right"
           onPress={() => setDatePicker(true)}
           title={date ? moment(date).format('DD/MM/YYYY') : placeholder}

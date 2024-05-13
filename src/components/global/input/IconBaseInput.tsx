@@ -42,8 +42,8 @@ export function IconBaseInput({
         allowFontScaling={false}
         {...rest}
         onBlur={() => onBlurVerify()}
-        placeholderTextColor="#3f3f46"
-        className="flex-1 h-full px-4 text-app text-zinc-100"
+        placeholderTextColor="#cfcfd5"
+        className="flex-1 h-full px-4 text-app text-white"
       />
       {icon}
     </View>

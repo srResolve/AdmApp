@@ -56,10 +56,10 @@ export function EditTaskAndProductModal({
   return (
     <Modal visible={open} transparent animationType="fade">
       <>
-        <View className="absolute top-0 left-0 right-0 z-20 pb-2  my-14 mx-6 rounded-xl items-center  bg-primary_600">
+        <View className="absolute top-0 left-0 right-0 z-20 pb-2  my-14 mx-6 rounded-xl items-center  bg-white">
           <View className="flex-row items-center w-full">
             <BackButton onPress={() => setOpen(false)} />
-            <Text className="text-zinc-100 self-center text-2xl font-bold">Editar Serviço</Text>
+            <Text className="text-black self-center text-2xl font-bold">Editar Serviço</Text>
           </View>
           <View className="w-full items-center px-4">
             <InputForm

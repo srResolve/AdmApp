@@ -21,35 +21,35 @@ export default function Finance() {
             onPress={() => setCurrentTable('daySchedule')}
           >
             <AntDesign name="calendar" size={24} color="white" />
-            <Text className="text-lg font-semibold text-zinc-100 ml-1">Agenda do dia</Text>
+            <Text className="text-lg font-semibold text-black ml-1">Agenda do dia</Text>
           </TouchableOpacity>
           <TouchableOpacity
             className={`ml-5 rounded-lg px-6 py-4 flex-row  items-center justify-center ${currentTable === 'accounts' ? 'bg-primary_800 border-2 border-zinc-100' : 'bg-primary_400'}`}
             onPress={() => setCurrentTable('accounts')}
           >
             <FontAwesome name="bank" size={24} color="white" />
-            <Text className="text-lg font-semibold text-zinc-100 ml-1">Contas</Text>
+            <Text className="text-lg font-semibold text-black ml-1">Contas</Text>
           </TouchableOpacity>
           <TouchableOpacity
             className={`ml-5 rounded-lg px-6 py-4 flex-row  items-center justify-center ${currentTable === 'collaboratorsPayment' ? 'bg-primary_800 border-2 border-zinc-100' : 'bg-primary_400'}`}
             onPress={() => setCurrentTable('collaboratorsPayment')}
           >
             <MaterialCommunityIcons name="account-cog-outline" size={20} color="white" />
-            <Text className="text-lg font-semibold text-zinc-100 ml-1">Colaboradores</Text>
+            <Text className="text-lg font-semibold text-black ml-1">Colaboradores</Text>
           </TouchableOpacity>
           <TouchableOpacity
             className={`ml-5 rounded-lg px-6 py-4 flex-row  items-center justify-center ${currentTable === 'schedule' ? 'bg-primary_800 border-2 border-zinc-100' : 'bg-primary_400'}`}
             onPress={() => setCurrentTable('schedule')}
           >
             <AntDesign name="calendar" size={24} color="white" />
-            <Text className="text-lg font-semibold text-zinc-100 ml-1">Agendadas</Text>
+            <Text className="text-lg font-semibold text-black ml-1">Agendadas</Text>
           </TouchableOpacity>
           <TouchableOpacity
             className={`ml-5 rounded-lg px-6 py-4 flex-row  items-center justify-center ${currentTable === 'financialRegister' ? 'bg-primary_800 border-2 border-zinc-100' : 'bg-primary_400'}`}
             onPress={() => setCurrentTable('financialRegister')}
           >
             <FontAwesome5 name="funnel-dollar" size={24} color="white" />
-            <Text className="text-lg font-semibold text-zinc-100 ml-1">Entradas e saídas</Text>
+            <Text className="text-lg font-semibold text-black ml-1">Entradas e saídas</Text>
           </TouchableOpacity>
         </ScrollView>
       </View>

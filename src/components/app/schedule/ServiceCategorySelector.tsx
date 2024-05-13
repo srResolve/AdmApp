@@ -51,24 +51,24 @@ export function ServiceCategorySelector({ handleSelect, selectedValue }: Props) 
         titleClassName="text-xl"
         rightIcon={
           selectedValue === '' ? (
-            <AntDesign name="pluscircleo" size={24} color="white" />
+            <AntDesign name="pluscircleo" size={24} color="black" />
           ) : (
             <AntDesign name="checkcircleo" size={24} color="green" />
           )
         }
         onPress={() => setModalOpen(true)}
-        leftIcon={<Entypo name="folder" size={28} color="white" />}
+        leftIcon={<Entypo name="folder" size={28} color="black" />}
       />
 
       <Modal visible={modalOpen} transparent>
-        <View className="absolute left-0 right-0 z-10  pb-2 mx-6 rounded-xl items-center  bg-primary_600 top-24 h-[70%]">
+        <View className="absolute left-0 right-0 z-10  pb-2 mx-6 rounded-xl items-center  bg-white top-24 h-[70%]">
           <View className="w-full flex-row px-2 items-center">
             <BackButton onPress={() => setModalOpen(false)} />
-            <Text className="text-zinc-100 self-center text-2xl font-bold">Categorias</Text>
+            <Text className="text-black self-center text-2xl font-bold">Categorias</Text>
           </View>
           <View className="w-full max-h-[90%]">
             {loading ? (
-              <ActivityIndicator size="large" color="white" />
+              <ActivityIndicator size="large" color="black" />
             ) : (
               <FlatList
                 className="w-full px-2"
@@ -79,9 +79,9 @@ export function ServiceCategorySelector({ handleSelect, selectedValue }: Props) 
                     onPress={() => handleSelect(item.id)}
                     className={`w-full h-12 items-center justify-between flex-row px-4 rounded-xl mt-2 bg-primary_400 ${selectedValue === item.id && 'bg-green-800 border border-zinc-100'}`}
                   >
-                    <Text className="text-zinc-100 font-bold text-xl">{item.name}</Text>
+                    <Text className={` ${selectedValue === item.id ? "text-white":"text-primary_800"} font-bold text-xl`}>{item.name}</Text>
                     {selectedValue === item.id && (
-                      <AntDesign name="check" size={24} color="white" />
+                      <AntDesign name="check" size={24} color="black" />
                     )}
                   </TouchableOpacity>
                 )}

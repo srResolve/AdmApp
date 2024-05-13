@@ -76,33 +76,33 @@ export function NewServiceModal({ open, setOpen, handleUpdate }: Props) {
 
   return (
     <Modal visible={open} transparent animationType="fade">
-      <View className="absolute left-0 top-20 right-0 z-10  pb-8  my-14 mx-6 rounded-xl items-center  bg-primary_600">
+      <View className="absolute left-0 top-20 right-0 z-10  pb-8  my-14 mx-6 rounded-xl items-center  bg-white">
         <View className="flex-row items-center justify-between w-full px-2">
           {/* <DoubleIconButton
             title="Orçamentos"
             className="w-[44%]"
             titleClassName="text-sm"
-            leftIcon={<MaterialIcons name="folder-copy" size={18} color="white" />}
-            rightIcon={<Entypo name="chevron-down" size={22} color="white" />}
+            leftIcon={<MaterialIcons name="folder-copy" size={18} color="black" />}
+            rightIcon={<Entypo name="chevron-down" size={22} color="black" />}
           />
-          <Text className="text-zinc-100 self-center text-xl font-bold">ou</Text> */}
+          <Text className="text-black self-center text-xl font-bold">ou</Text> */}
           <DoubleIconButton
             title={(client && client.name) || 'Cliente'}
             onPress={() => setClientModal(true)}
             // className="w-[44%] bg-secondary_600"
             // titleClassName="text-sm text-gray-600"
-            leftIcon={<FontAwesome name="user" size={28} color="white" />}
-            rightIcon={<Entypo name="chevron-down" size={28} color="white" />}
+            leftIcon={<FontAwesome name="user" size={28} color="black" />}
+            rightIcon={<Entypo name="chevron-down" size={28} color="black" />}
           />
         </View>
         <View className="p-2 items-center w-full">
           <DoubleIconButton
             title="Serviços"
-            leftIcon={<Entypo name="clipboard" size={24} color="white" />}
+            leftIcon={<Entypo name="clipboard" size={24} color="black" />}
             onPress={() => setCreateTaskModal(true)}
             rightIcon={
               services.length === 0 ? (
-                <AntDesign name="pluscircleo" size={24} color="white" />
+                <AntDesign name="pluscircleo" size={24} color="black" />
               ) : (
                 <View className="flex-row items-center ">
                   <Text className="text-sm text-zinc-300 font-bold">{services.length}</Text>
@@ -112,12 +112,12 @@ export function NewServiceModal({ open, setOpen, handleUpdate }: Props) {
             }
           />
           <DoubleIconButton
-            leftIcon={<AntDesign name="calendar" size={24} color="white" />}
+            leftIcon={<AntDesign name="calendar" size={24} color="black" />}
             title="Data e Hora de Execução"
             onPress={() => setExecutionDateModal(true)}
             rightIcon={
               executionData === null ? (
-                <AntDesign name="pluscircleo" size={24} color="white" />
+                <AntDesign name="pluscircleo" size={24} color="black" />
               ) : (
                 <AntDesign name="checkcircleo" size={24} color="green" />
               )
@@ -126,12 +126,12 @@ export function NewServiceModal({ open, setOpen, handleUpdate }: Props) {
           <ServiceCategorySelector selectedValue={category} handleSelect={setCategory} />
 
           <DoubleIconButton
-            leftIcon={<MaterialCommunityIcons name="account-cog-outline" size={24} color="white" />}
+            leftIcon={<MaterialCommunityIcons name="account-cog-outline" size={24} color="black" />}
             title="Colaborador (opcional)"
             onPress={() => setCollaboratorModal(true)}
             rightIcon={
               collaborator === null ? (
-                <AntDesign name="pluscircleo" size={24} color="white" />
+                <AntDesign name="pluscircleo" size={24} color="black" />
               ) : (
                 <AntDesign name="checkcircleo" size={24} color="green" />
               )

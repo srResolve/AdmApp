@@ -46,11 +46,11 @@ export function ContactListModal({ open, setOpen, contacts, handleSelect }: Prop
 
   return (
     <Modal visible={open} transparent animationType="fade">
-      <View className="absolute left-0 right-0 z-10 h-content pb-2 mx-6 rounded-xl items-center h-2/3  bg-primary_600 top-32 px-2">
+      <View className="absolute left-0 right-0 z-10 h-content pb-2 mx-6 rounded-xl items-center h-2/3  bg-white top-32 px-2">
         <View className="flex-row items-center justify-between w-full pr-2">
           <View className="flex-row">
             <BackButton onPress={() => setOpen(false)} />
-            <Text className="text-zinc-100 self-center text-2xl font-bold">Contatos</Text>
+            <Text className="text-black self-center text-2xl font-bold">Contatos</Text>
           </View>
         </View>
         <IconBaseInput
@@ -71,10 +71,10 @@ export function ContactListModal({ open, setOpen, contacts, handleSelect }: Prop
                 className="flex-row justify-between p-2 bg-primary_400 w-full mt-2 rounded-lg items-center"
               >
                 <FontAwesome name="user-o" size={24} color="white" />
-                <Text numberOfLines={1} className="text-zinc-100 w-6/12 font-semibold text-base">
+                <Text numberOfLines={1} className="text-primary_800} w-6/12 font-semibold text-base">
                   {item.name}
                 </Text>
-                <Text numberOfLines={1} className="text-zinc-200 text-sm w-4/12">
+                <Text numberOfLines={1} className="text-primary_700 text-sm w-4/12">
                   {item.phoneNumber}
                 </Text>
               </TouchableOpacity>

@@ -53,7 +53,7 @@ export function NewBankAccountModal({ open, setOpen, handleUpdate }: Props) {
         <View className="absolute left-0 right-0 z-10  pb-2  my-14 mx-6 rounded-xl items-center  bg-primary_600 top-32">
           <View className="flex-row items-center w-full p-2">
             <FontAwesome name="bank" size={28} color="white" />
-            <Text className="text-zinc-100 self-center text-2xl font-bold ml-2">Nova Conta</Text>
+            <Text className="text-black self-center text-2xl font-bold ml-2">Nova Conta</Text>
           </View>
           <View className="px-4 w-full items-center">
             <InputForm
@@ -64,7 +64,7 @@ export function NewBankAccountModal({ open, setOpen, handleUpdate }: Props) {
               containerStyle="w-full"
             />
             <View className="mt-4">
-              <Text className="text-zinc-100 text-xl font-semibold">Saldo Atual</Text>
+              <Text className="text-black text-xl font-semibold">Saldo Atual</Text>
               <InputForm control={control} error={[]} name="value" containerStyle="w-full mt-2" />
             </View>
             <Text className="text-red-700 mt-6 font-semibold">{errorMessage}</Text>

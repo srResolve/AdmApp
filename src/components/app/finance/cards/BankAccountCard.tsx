@@ -15,7 +15,7 @@ export function BankAccountCard({ item }: Props) {
         <View className="bg-primary_200 rounded-full w-12 h-12 items-center justify-center">
           <Image className="w-10 h-10  " source={{ uri: bankList[item.name] || '' }} />
         </View>
-        <Text className="text-zinc-100 font-semibold text-xl ml-2">{item.name}</Text>
+        <Text className="text-black font-semibold text-xl ml-2">{item.name}</Text>
       </View>
       <Text className="text-green-800 text-lg font-semibold">
         {item.balance.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
